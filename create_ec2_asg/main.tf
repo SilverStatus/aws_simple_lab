@@ -85,12 +85,14 @@ resource "aws_security_group_rule" "matts-week-21-http-inbound" {
 }
 
 # Creating our launch configuration with user data to launch an Apache web server
-resource "aws_launch_configuration" "matts-week21-lc" {
+resource "aws_launch_template" "matts-week21-lc" {
   name_prefix          = "${var.project_name}-lc"
   image_id             = "ami-06e46074ae430fba6"
   instance_type        = "t2.micro"
-  security_groups      = [aws_security_group.allow-tls.id]
   user_data            = file("apache_httpd.sh")
+  network_interfaces {
+    security_groups      = [aws_security_group.allow-tls.id]
+  }
 
   lifecycle {
     create_before_destroy = true
