@@ -109,7 +109,11 @@ resource "aws_autoscaling_group" "matts-week21-asg" {
   health_check_type    = "EC2"
   vpc_zone_identifier  = [aws_subnet.subnet-1.id, aws_subnet.subnet-2.id]
 
-  launch_configuration = aws_launch_template.matts-week21-lc.name
+  launch_template {
+    id      = aws_launch_template.matts-week21-lc.id
+    version = "$Latest"
+  }
+
 }
 
 # Creating our Application Load Balancer target group
