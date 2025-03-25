@@ -89,7 +89,7 @@ resource "aws_launch_template" "matts-week21-lc" {
   name_prefix          = "${var.project_name}-lc"
   image_id             = "ami-08b5b3a93ed654d19"
   instance_type        = "t2.micro"
-  user_data            = file("apache_httpd.sh")
+  user_data            = filebase64("apache_httpd.sh")
   network_interfaces {
     security_groups      = [aws_security_group.allow-tls.id]
   }
