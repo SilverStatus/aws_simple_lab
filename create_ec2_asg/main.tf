@@ -87,7 +87,7 @@ resource "aws_security_group_rule" "matts-week-21-http-inbound" {
 # Creating our launch configuration with user data to launch an Apache web server
 resource "aws_launch_template" "matts-week21-lc" {
   name_prefix          = "${var.project_name}-lc"
-  image_id             = "ami-06e46074ae430fba6"
+  image_id             = "ami-08b5b3a93ed654d19"
   instance_type        = "t2.micro"
   user_data            = file("apache_httpd.sh")
   network_interfaces {
