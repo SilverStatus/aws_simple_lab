@@ -54,12 +54,22 @@ resource "aws_security_group" "allow-tls" {
   description = "Allow TLS inbound traffic from the internet"
   vpc_id      = aws_vpc.matts-week-21.id
 
+# New HTTP rule (port 80)
   ingress {
     description      = "HTTP from VPC"
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
     cidr_blocks      = [aws_vpc.matts-week-21.cidr_block]
+  }
+
+# New SSH rule (port 22)
+  ingress {
+    description      = "SSH from anywhere"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["118.99.115.94/32"] # Or restrict to specific IPs
   }
 
   egress {
@@ -84,24 +94,6 @@ resource "aws_security_group_rule" "matts-week-21-http-inbound" {
   security_group_id = aws_security_group.allow-tls.id
 }
 
-# add ssh rule to security group with source my public ip only
-resource "aws_security_group_rule" "allow-ssh" {
-  type        = "ingress"
-  from_port   = 22
-  to_port     = 22
-  protocol    = "tcp"
-  cidr_blocks = ["118.99.115.94/32"]
-  security_group_id = aws_security_group.allow-tls.id
-}
-
-resource "aws_security_group_rule" "allow_icmp" {
-  type              = "ingress"
-  from_port         = -1  # ICMP has no ports; use -1
-  to_port           = -1
-  protocol          = "icmp"
-  cidr_blocks       = ["0.0.0.0/0"]  # Or restrict to your IP
-  security_group_id = aws_security_group.allow-tls.id
-}
 
 # Creating our launch configuration with user data to launch an Apache web server
 resource "aws_launch_template" "matts-week21-lc" {
