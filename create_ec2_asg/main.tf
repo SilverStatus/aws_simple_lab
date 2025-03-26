@@ -72,15 +72,6 @@ resource "aws_security_group" "allow-tls" {
     cidr_blocks      = ["118.99.115.94/32"] # Or restrict to specific IPs
   }
 
-# New SSH rule (port 22)
-  ingress {
-    description      = "SSH from anywhere"
-    from_port        = "-1"
-    to_port          = "-1"
-    protocol         = "icmp"
-    cidr_blocks      = ["118.99.115.94/32"] # Or restrict to specific IPs
-  }
-
   egress {
     from_port        = 0
     to_port          = 0
