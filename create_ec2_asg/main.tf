@@ -1,3 +1,4 @@
+# references: https://natworked.medium.com/how-to-use-terraform-to-provision-autoscaling-ec2-instances-8bf9d0c6864
 # Creating our Week 21 VPC
 resource "aws_vpc" "matts-week-21" {
   cidr_block = "10.0.0.0/16"
