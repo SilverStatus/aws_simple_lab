@@ -94,6 +94,15 @@ resource "aws_security_group_rule" "allow-ssh" {
   security_group_id = aws_security_group.allow-tls.id
 }
 
+resource "aws_security_group_rule" "allow_icmp" {
+  type              = "ingress"
+  from_port         = -1  # ICMP has no ports; use -1
+  to_port           = -1
+  protocol          = "icmp"
+  cidr_blocks       = ["0.0.0.0/0"]  # Or restrict to your IP
+  security_group_id = aws_security_group.allow-tls.id
+}
+
 # Creating our launch configuration with user data to launch an Apache web server
 resource "aws_launch_template" "matts-week21-lc" {
   name_prefix          = "${var.project_name}-lc"
