@@ -84,6 +84,16 @@ resource "aws_security_group_rule" "matts-week-21-http-inbound" {
   security_group_id = aws_security_group.allow-tls.id
 }
 
+# add ssh rule to security group with source my public ip only
+resource "aws_security_group_rule" "allow-ssh" {
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = ["118.99.115.94/32"]
+  security_group_id = aws_security_group.allow-tls.id
+}
+
 # Creating our launch configuration with user data to launch an Apache web server
 resource "aws_launch_template" "matts-week21-lc" {
   name_prefix          = "${var.project_name}-lc"
