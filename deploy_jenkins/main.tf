@@ -101,6 +101,9 @@ resource "aws_instance" "ec2" {
    subnet_id = aws_subnet.jenkins-subnet-1.id
    key_name = "test"
 
+   # attach bash script to the instance
+   user_data = filebase64("jenkins-install.sh")
+
    # Associate the security group with the instance
    vpc_security_group_ids = [aws_security_group.jenkins_sg.id]
    tags = {
