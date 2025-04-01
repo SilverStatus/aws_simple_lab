@@ -1,7 +1,7 @@
 
 # create vpc for jenkins
 resource "aws_vpc" "jenkins-env" {
-    cidr_block = "110.137.50.6/24"
+    cidr_block = "110.137.50.0/24"
 }
 
 # create subnet for jenkins
@@ -73,7 +73,7 @@ resource "aws_security_group" "jenkins_sg" {
     cidr_blocks = ["36.82.121.165/32"]  # Restrict to your IP or office IP range
   }
 
-  # Optional: HTTPS (if using SSL)
+  # Optional: HTTP 90 
   ingress {
     description = "HTTP for Jenkins UI"
     from_port   = 80
