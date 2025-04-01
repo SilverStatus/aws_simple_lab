@@ -102,7 +102,7 @@ resource "aws_instance" "ec2" {
    key_name = "test"
 
    # attach bash script to the instance
-   user_data = filebase64("jenkins-install.sh")
+   user_data = filebase64("install_jenkins.sh")
 
    # Associate the security group with the instance
    vpc_security_group_ids = [aws_security_group.jenkins_sg.id]
