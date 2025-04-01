@@ -107,7 +107,7 @@ resource "aws_instance" "ec2" {
 
 # create s3 bucket for jenkins
 resource "aws_s3_bucket" "terraform-jenkins" {
-    bucket = "terraform-jenkins"
+    bucket = "terraform-jenkins-109701"
     tags = {
         Name = "terraform-jenkins"
         description = "terraform S3 bucket"
