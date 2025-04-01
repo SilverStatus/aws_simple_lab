@@ -7,7 +7,7 @@ resource "aws_vpc" "jenkins-env" {
 # create subnet for jenkins
 resource "aws_subnet" "jenkins-subnet-1" {
     vpc_id = aws_vpc.jenkins-env.id
-    cidr_block = "110.137.50.6/25"
+    cidr_block = "110.137.50.0/25"
     availability_zone = "us-east-1a"
     map_public_ip_on_launch = true
     tags = {
@@ -35,7 +35,7 @@ resource "aws_internet_gateway" "jenkins-igw" {
 
 resource "aws_route_table" "jenkins-route-table" {
     vpc_id = aws_vpc.jenkins-env.id
-    route = {
+    route {
         cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.jenkins-igw.id
     }
