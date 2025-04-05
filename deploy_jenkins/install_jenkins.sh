@@ -41,3 +41,13 @@ free -h
 # install git
 sudo yum install git -y
 
+# Install prerequisites
+sudo yum install -y yum-utils shadow-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+
+# Install Terraform
+sudo yum install -y terraform
+
+# Verify installation
+terraform --version
+echo "Terraform installed successfully!"

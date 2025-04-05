@@ -2,6 +2,11 @@
 # create vpc for jenkins
 resource "aws_vpc" "jenkins-env" {
     cidr_block = "110.137.50.0/24"
+    tags = {
+      Name = "${var.project_name}-jenkins-env"
+      Environment = "Terraform"
+      Project = "${var.project_name}"
+    }
 }
 
 # create subnet for jenkins
