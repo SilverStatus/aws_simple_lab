@@ -188,6 +188,7 @@ resource "aws_launch_template" "as_conf" {
   name_prefix   = "terraform-lc-example-"
   image_id      = var.ami_selection
   instance_type = var.instance_type
+  key_name      = "test"  
 
   network_interfaces {
     security_groups = [aws_security_group.microk8s_sg.id] 
