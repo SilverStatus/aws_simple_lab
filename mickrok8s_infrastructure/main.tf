@@ -184,12 +184,14 @@ module "alb" {
 
 }
 
-resource "aws_launch_configuration" "as_conf" {
+resource "aws_launch_template" "as_conf" {
   name_prefix   = "terraform-lc-example-"
   image_id      = var.ami_selection
   instance_type = var.instance_type
 
-  security_groups = [aws_security_group.microk8s_sg.id]
+  network_interfaces {
+    security_groups = [aws_security_group.microk8s_sg.id] 
+  }
 
   lifecycle {
     create_before_destroy = true
@@ -199,7 +201,6 @@ resource "aws_launch_configuration" "as_conf" {
 
 resource "aws_autoscaling_group" "asg-test" {
   name                 = "terraform-asg-example"
-  launch_configuration = aws_launch_configuration.as_conf.name
   vpc_zone_identifier  = [aws_subnet.microk8s-subnet-1.id, aws_subnet.microk8s-subnet-2.id]
   desired_capacity     = 1
   min_size             = 2
@@ -208,6 +209,11 @@ resource "aws_autoscaling_group" "asg-test" {
   depends_on = [module.alb]
 
   target_group_arns    =  module.alb.target_group_arns
+
+  launch_template {
+    id      = aws_launch_template.as_conf.id
+    version = "$Latest"
+  }
 
   tag {
     key                   = "Name"
