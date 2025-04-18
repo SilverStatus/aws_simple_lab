@@ -202,7 +202,7 @@ resource "aws_launch_template" "as_conf" {
 resource "aws_autoscaling_group" "asg-test" {
   name                 = "terraform-asg-example"
   vpc_zone_identifier  = [aws_subnet.microk8s-subnet-1.id, aws_subnet.microk8s-subnet-2.id]
-  desired_capacity     = 1
+  desired_capacity     = 2
   min_size             = 2
   max_size             = 5
 
