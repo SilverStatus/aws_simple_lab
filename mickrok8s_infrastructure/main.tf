@@ -107,7 +107,7 @@ module "security_group" {
 
   name        = "alb-sg-${var.project_name}"
   description = "Security group for example usage with ALB"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = aws_vpc.microk8s-env.id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp"]
@@ -123,9 +123,9 @@ module "alb" {
 
   load_balancer_type = "application"
 
-  vpc_id          = data.aws_vpc.default.id
+  vpc_id          = aws_vpc.microk8s-env.id
   security_groups = [module.security_group.security_group_id]
-  subnets         = data.aws_subnets.all.ids
+  subnets         = [aws_subnet.microk8s-subnet-1.id, aws_subnet.microk8s-subnet-2.id]
 
   http_tcp_listeners = [
     # Forward action is default, either when defined or undefined
@@ -189,7 +189,7 @@ resource "aws_launch_configuration" "as_conf" {
   image_id      = var.ami_selection
   instance_type = var.instance_type
 
-  security_groups = [aws_security_group.aws-ec2-sg.id]
+  security_groups = [aws_security_group.microk8s_sg.id]
 
   lifecycle {
     create_before_destroy = true
