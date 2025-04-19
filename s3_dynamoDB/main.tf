@@ -1,3 +1,20 @@
+# Specifies the required Terraform version and AWS Provider version.
+terraform {
+  required_version = ">= 0.14"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.92.0"
+    }
+  }
+}
+
+# Sets our region to "us-east-1"
+provider "aws" {
+  region = "us-east-1"
+}
+
 # create s3 bucket for microk8s
 resource "aws_s3_bucket" "terraform-microk8s" {
     bucket = "terraform-101001"
