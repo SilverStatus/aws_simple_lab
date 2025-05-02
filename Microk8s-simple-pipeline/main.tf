@@ -23,5 +23,50 @@ resource "aws_subnet" "public_subnet" {
     Environment = "Terraform"
     Project = "${var.project_name}"
   }
-  
 }
+
+# Create a security group for the instances
+resource "aws_security_group" "instance_sg" {
+  name        = "multi-az-instance-sg"
+  description = "Security group for multi-AZ instance group"
+  vpc_id      = aws_vpc.microk8s-vpc.id
+
+  # Allow all inbound traffic from the same security group
+    # This is critical for instances to communicate with each other
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  # All protocols
+    self        = true  # Critical: Allows members of this SG to talk to each other
+  }
+
+  # Allow SSH access from anywhere (restrict in production!)
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow HTTP access
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+    tags = {
+        Name        = "${var.project_name}-instance-sg"
+        Environment = "Terraform"
+        Project     = "${var.project_name}"
+    }
+}
+
