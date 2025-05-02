@@ -16,7 +16,7 @@ output "aws_security_group" {
 
 output "instances_details" {
     value = {
-        for instance in aws_instance.microk8s-instance: 
+        for instance in aws_instance.microk8s_instance: 
         instance.id => {
             public_ip = instance.public_ip
             private_ip = instance.private_ip
