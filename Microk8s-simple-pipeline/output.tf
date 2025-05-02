@@ -27,3 +27,8 @@ output "instances_details" {
             }  
     }
 }
+
+output "instance_public_ips" {
+    value = [for instance in aws_instance.microk8s_instance : instance.public_ip]
+}
+
