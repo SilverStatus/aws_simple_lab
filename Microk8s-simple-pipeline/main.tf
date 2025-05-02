@@ -77,7 +77,7 @@ resource "aws_instance" "microk8s_instance" {
   subnet_id         = aws_subnet.public_subnet[count.index].id
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
   associate_public_ip_address = true
-  key_name = test
+  key_name = "test"
   lifecycle {
     create_before_destroy = true
   }
