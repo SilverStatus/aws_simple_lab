@@ -86,3 +86,4 @@ resource "aws_instance" "microk8s_instance" {
   
 }
 
+
