@@ -37,7 +37,7 @@ output "instance_private_ips" {
 }
 
 output "alb_dns_name" {
-    value = aws_lb.microk8s-alb.dns_name
+    value = aws_lb.microk8s_alb.dns_name
   
 }
 
