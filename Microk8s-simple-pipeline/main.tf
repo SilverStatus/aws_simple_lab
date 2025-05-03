@@ -85,9 +85,8 @@ resource "aws_instance" "microk8s_instance_on_demand" {
               sudo snap install microk8s --classic --channel=1.29/stable
               sudo usermod -a -G microk8s ubuntu
               newgrp microk8s
-              wait 
+              while ! command -v microk8s &> /dev/null; do sleep 10; done
               microk8s start
-              wait
               microk8s status
               EOF
   lifecycle {
@@ -110,6 +109,16 @@ resource "aws_instance" "microk8s_instance_spot" {
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
   associate_public_ip_address = true
   key_name = "test"
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt-get update
+              sudo snap install microk8s --classic --channel=1.29/stable
+              sudo usermod -a -G microk8s ubuntu
+              newgrp microk8s
+              while ! command -v microk8s &> /dev/null; do sleep 10; done
+              microk8s start
+              microk8s status
+              EOF
   lifecycle {
     create_before_destroy = true
   }
