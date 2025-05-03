@@ -103,7 +103,7 @@ resource "aws_instance" "microk8s_instance_on_demand" {
 
 # Create EC2 instances on spot
 resource "aws_instance" "microk8s_instance_spot" {
-  count             = 2
+  count             = 1
   ami               = var.ami_selection  
   instance_type     = "t3.small"
   subnet_id         = aws_subnet.public_subnet[count.index].id
@@ -120,6 +120,11 @@ resource "aws_instance" "microk8s_instance_spot" {
       spot_instance_type = "persistent"
       instance_interruption_behavior = "stop"
     }
+  }
+  tags = {
+    Name        = "${var.project_name}-instanceSP-${count.index}"
+    Environment = "Terraform"
+    Project     = "${var.project_name}"
   }
   
 }
