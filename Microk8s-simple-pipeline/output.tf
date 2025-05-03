@@ -14,9 +14,23 @@ output "aws_security_group" {
     value = aws_security_group.instance_sg.id
 }
 
-output "instances_details" {
+output "instances_details_on_demand" {
     value = {
-        for instance in aws_instance.microk8s_instance: 
+        for instance in aws_instance.microk8s_instance_on_demand: 
+        instance.id => {
+            public_ip = instance.public_ip
+            private_ip = instance.private_ip
+            ami_id = instance.ami
+            instance_type = instance.instance_type
+            availability_zone = instance.availability_zone
+            tags = instance.tags
+            }  
+    }
+}
+
+output "instances_details_spot" {
+    value = {
+        for instance in aws_instance.microk8s_instance_spot: 
         instance.id => {
             public_ip = instance.public_ip
             private_ip = instance.private_ip
@@ -29,11 +43,11 @@ output "instances_details" {
 }
 
 output "instance_public_ips" {
-    value = [for instance in aws_instance.microk8s_instance : instance.public_ip]
+    value = {
+        spot_instance = aws_instance.microk8s_instance_spot[*].public_ip
+        on_demand_instance = aws_instance.microk8s_instance_on_demand[*].public_ip
+    }
 
-}
-output "instance_private_ips" {
-    value = [for instance in aws_instance.microk8s_instance : instance.private_ip]
 }
 
 output "alb_dns_name" {

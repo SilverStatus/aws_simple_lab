@@ -70,10 +70,42 @@ resource "aws_security_group" "instance_sg" {
     }
 }
 
-resource "aws_instance" "microk8s_instance" {
-  count             = 3
-  ami               = var.ami_selection  # Amazon Linux 2 AMI
+# Create EC2 instances on demand
+resource "aws_instance" "microk8s_instance_on_demand" {
+  count             = 2
+  ami               = var.ami_selection  
   instance_type     = var.instance_type
+  subnet_id         = aws_subnet.public_subnet[count.index].id
+  vpc_security_group_ids = [aws_security_group.instance_sg.id]
+  associate_public_ip_address = true
+  key_name = "test"
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt-get update
+              sudo snap install microk8s --classic --channel=1.29/stable
+              sudo usermod -a -G microk8s ubuntu
+              newgrp microk8s
+              wait 
+              microk8s start
+              wait
+              microk8s status
+              EOF
+  lifecycle {
+    create_before_destroy = true
+  }
+  tags = {
+    Name        = "${var.project_name}-instanceOD-${count.index}"
+    Environment = "Terraform"
+    Project     = "${var.project_name}"
+  }
+  
+}
+
+# Create EC2 instances on spot
+resource "aws_instance" "microk8s_instance_spot" {
+  count             = 2
+  ami               = var.ami_selection  
+  instance_type     = "t3.small"
   subnet_id         = aws_subnet.public_subnet[count.index].id
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
   associate_public_ip_address = true
@@ -81,10 +113,13 @@ resource "aws_instance" "microk8s_instance" {
   lifecycle {
     create_before_destroy = true
   }
-  tags = {
-    Name        = "${var.project_name}-instance-${count.index}"
-    Environment = "Terraform"
-    Project     = "${var.project_name}"
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      max_price = "0.02"
+      spot_instance_type = "persistent"
+      instance_interruption_behavior = "stop"
+    }
   }
   
 }
@@ -182,10 +217,17 @@ resource "aws_lb_target_group" "microk8s_tg" {
 }
 
 # Attach instances to the target group
-resource "aws_lb_target_group_attachment" "microk8s_tg_attachment" {
-  count = length(aws_instance.microk8s_instance)
+resource "aws_lb_target_group_attachment" "microk8s_tg_attachment_on_demand" {
+  count = length(aws_instance.microk8s_instance_on_demand) 
   target_group_arn = aws_lb_target_group.microk8s_tg.arn
-  target_id        = aws_instance.microk8s_instance[count.index].id
+  target_id        = aws_instance.microk8s_instance_on_demand[count.index].id
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "microk8s_tg_attachment_spot" {
+  count = length(aws_instance.microk8s_instance_spot) 
+  target_group_arn = aws_lb_target_group.microk8s_tg.arn
+  target_id        = aws_instance.microk8s_instance_spot[count.index].id
   port             = 80
 }
 
