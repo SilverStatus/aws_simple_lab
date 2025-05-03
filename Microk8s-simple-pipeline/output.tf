@@ -30,5 +30,14 @@ output "instances_details" {
 
 output "instance_public_ips" {
     value = [for instance in aws_instance.microk8s_instance : instance.public_ip]
+
+}
+output "instance_private_ips" {
+    value = [for instance in aws_instance.microk8s_instance : instance.private_ip]
+}
+
+output "alb_dns_name" {
+    value = aws_lb.microk8s-alb.dns_name
+  
 }
 
