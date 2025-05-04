@@ -100,7 +100,7 @@ resource "aws_instance" "microk8s_instance_on_demand" {
   
 }
 
-# Create EC2 instances on spot test
+# Create EC2 instances on spot 
 resource "aws_instance" "microk8s_instance_spot" {
   count             = 1
   ami               = var.ami_selection  
