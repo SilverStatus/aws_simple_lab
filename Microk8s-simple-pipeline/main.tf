@@ -72,7 +72,7 @@ resource "aws_security_group" "instance_sg" {
 
 # Create EC2 instances on demand
 resource "aws_instance" "microk8s_instance_on_demand" {
-  count             = 2
+  count             = 1
   ami               = var.ami_selection  
   instance_type     = var.instance_type
   subnet_id         = aws_subnet.public_subnet[count.index].id
@@ -102,7 +102,7 @@ resource "aws_instance" "microk8s_instance_on_demand" {
 
 # Create EC2 instances on spot for testing
 resource "aws_instance" "microk8s_instance_spot" {
-  count             = 1
+  count             = 2
   ami               = var.ami_selection  
   instance_type     = "t3.small"
   subnet_id         = aws_subnet.public_subnet[count.index].id
