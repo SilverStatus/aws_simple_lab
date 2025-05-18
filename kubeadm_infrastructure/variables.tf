@@ -1,7 +1,7 @@
 variable "project_name" {
   description = "The name of the current project we're working with"
   type        = string
-  default     = "kubernetes-aws-tf-project"
+  default     = "k8s-aws-tf-project"
 }
 
 variable "ami_selection" {
