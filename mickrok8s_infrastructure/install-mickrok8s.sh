@@ -14,12 +14,14 @@ sudo apt-get install -y kubectl
 sudo snap install microk8s --classic --channel=1.29/stable
 sudo usermod -a -G microk8s ubuntu
 newgrp microk8s
+wait 
 
 # start microk8s
-microk8s start --wait-ready
+microk8s start 
+wait
 
 # Check status of microk8s
-microk8s status --wait-ready
+microk8s status 
 
 # how to deploy a simple flask app on microk8s
 
