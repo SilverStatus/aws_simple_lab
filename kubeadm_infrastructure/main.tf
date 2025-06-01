@@ -226,14 +226,14 @@ resource "aws_lb_target_group" "k8s_tg" {
 
 # Attach instances to the target group
 resource "aws_lb_target_group_attachment" "k8s_tg_attachment_on_demand" {
-  count = length(aws_instance.microk8s_instance_on_demand) 
+  count = length(aws_instance.k8s_instance_on_demand) 
   target_group_arn = aws_lb_target_group.k8s_tg.arn
   target_id        = aws_instance.k8s_instance_on_demand[count.index].id
   port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "k8s_tg_attachment_spot" {
-  count = length(aws_instance.microk8s_instance_spot) 
+  count = length(aws_instance.k8s_instance_spot) 
   target_group_arn = aws_lb_target_group.k8s_tg.arn
   target_id        = aws_instance.k8s_instance_spot[count.index].id
   port             = 80
