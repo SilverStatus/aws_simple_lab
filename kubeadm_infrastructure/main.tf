@@ -42,10 +42,10 @@ resource "aws_security_group" "instance_sg" {
 
   # Allow SSH access from anywhere (restrict in production!)
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["182.253.169.218/32"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  # All protocols
+    cidr_blocks = ["182.253.169.112/32"]
   }
 
   # Allow HTTP access
@@ -53,7 +53,7 @@ resource "aws_security_group" "instance_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["182.253.169.218/32"]
+    cidr_blocks = ["0.0.0.0/32"]
   }
 
   # Allow all outbound traffic
@@ -233,7 +233,7 @@ resource "aws_lb_target_group_attachment" "k8s_tg_attachment_on_demand" {
 }
 
 resource "aws_lb_target_group_attachment" "k8s_tg_attachment_spot" {
-  count = length(aws_instance.k8s_instance_spot) 
+  count = length(aws_instance.microk8s_instance_spot) 
   target_group_arn = aws_lb_target_group.k8s_tg.arn
   target_id        = aws_instance.k8s_instance_spot[count.index].id
   port             = 80
