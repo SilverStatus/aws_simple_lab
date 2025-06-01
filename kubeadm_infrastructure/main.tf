@@ -79,7 +79,13 @@ resource "aws_instance" "k8s_instance_on_demand" {
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
   associate_public_ip_address = true
   key_name = "test"
-  user_data = filebase64("${path.module}/scripts/control-plane.sh master")
+  #user_data = filebase64("${path.module}/scripts/control-plane.sh master")
+  user_data = <<-EOF
+    #!/bin/bash
+    cd /scripts
+    chmod +x control-plane.sh
+    ./control-plane.sh master
+  EOF
   lifecycle {
     create_before_destroy = true
   }
@@ -100,7 +106,13 @@ resource "aws_instance" "k8s_instance_spot" {
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
   associate_public_ip_address = true
   key_name = "test"
-  user_data = filebase64("${path.module}/scripts/control-plane.sh master")
+  #user_data = filebase64("${path.module}/scripts/control-plane.sh master")
+  user_data = <<-EOF
+    #!/bin/bash
+    cd /scripts
+    chmod +x control-plane.sh
+    ./control-plane.sh master
+  EOF
   lifecycle {
     create_before_destroy = true
   }
