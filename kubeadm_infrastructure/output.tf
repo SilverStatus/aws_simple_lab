@@ -3,7 +3,7 @@ output "aws_availability_zones" {
 }
 
 output "aws_vpc" {
-    value = aws_vpc.microk8s-vpc.id
+    value = aws_vpc.k8s-vpc.id
 }
 
 output "aws_subnet" {
@@ -16,7 +16,7 @@ output "aws_security_group" {
 
 output "instances_details_on_demand" {
     value = {
-        for instance in aws_instance.microk8s_instance_on_demand: 
+        for instance in aws_instance.k8s_instance_on_demand: 
         instance.id => {
             public_ip = instance.public_ip
             private_ip = instance.private_ip
@@ -30,7 +30,7 @@ output "instances_details_on_demand" {
 
 output "instances_details_spot" {
     value = {
-        for instance in aws_instance.microk8s_instance_spot: 
+        for instance in aws_instance.k8s_instance_spot: 
         instance.id => {
             public_ip = instance.public_ip
             private_ip = instance.private_ip
@@ -44,14 +44,14 @@ output "instances_details_spot" {
 
 output "instance_public_ips" {
     value = {
-        spot_instance = aws_instance.microk8s_instance_spot[*].public_ip
-        on_demand_instance = aws_instance.microk8s_instance_on_demand[*].public_ip
+        spot_instance = aws_instance.k8s_instance_spot[*].public_ip
+        on_demand_instance = aws_instance.k8s_instance_on_demand[*].public_ip
     }
 
 }
 
 output "alb_dns_name" {
-    value = aws_lb.microk8s_lb.dns_name
+    value = aws_lb.k8s_lb.dns_name
   
 }
 
