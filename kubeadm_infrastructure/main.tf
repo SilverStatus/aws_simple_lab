@@ -107,7 +107,7 @@ resource "aws_instance" "k8s_instance_on_demand" {
 
 # Create EC2 instances on spot for testing
 resource "aws_instance" "k8s_instance_spot" {
-  count             = 1
+  count             = 2
   ami               = var.ami_selection  
   instance_type     = var.instance_type_on_spot
   subnet_id         = aws_subnet.public_subnet[count.index].id
