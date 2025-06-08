@@ -19,6 +19,6 @@ variable "instance_type_on_spot" {
 variable "instance_type_on_demand" {
     description = "The type of instance to use for on-demand instances"
     type        = string
-    default     = "t2.small"
+    default     = "t2.micro"
   
 }

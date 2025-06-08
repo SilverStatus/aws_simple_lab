@@ -45,7 +45,7 @@ resource "aws_security_group" "instance_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"  # All protocols
-    cidr_blocks = ["182.253.169.112/32"]
+    cidr_blocks = ["118.99.115.251/32"]
   }
 
   # Allow HTTP access
