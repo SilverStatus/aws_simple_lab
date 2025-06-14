@@ -55,3 +55,55 @@ resource "aws_ecr_repository" "my_ecr_repo" {
   }
   
 }
+
+# Create an ECR repository policy to allow pull access
+resource "aws_ecr_repository_policy" "my_ecr_repo_policy" {
+  repository = aws_ecr_repository.my_ecr_repo.name
+  policy     = <<EOF
+{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowPull",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+        ]
+      },
+      "Action": [
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:BatchCheckLayerAvailability"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+data "aws_caller_identity" "current" {}
+
+# Optional: Lifecycle policy to clean up old images
+resource "aws_ecr_lifecycle_policy" "my_ecr_repo_lifecycle" {
+  repository = aws_ecr_repository.my_ecr_repo.name
+
+  policy = <<EOF
+{
+  "rules": [
+    {
+      "rulePriority": 1,
+      "description": "Keep last 30 images",
+      "selection": {
+        "tagStatus": "any",
+        "countType": "imageCountMoreThan",
+        "countNumber": 30
+      },
+      "action": {
+        "type": "expire"
+      }
+    }
+  ]
+}
+EOF
+}
