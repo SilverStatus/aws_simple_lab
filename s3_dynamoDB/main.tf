@@ -74,7 +74,11 @@ resource "aws_ecr_repository_policy" "my_ecr_repo_policy" {
       "Action": [
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:CompleteLayerUpload",
+        "ecr:InitiateLayerUpload",
+        "ecr:PutImage",
+        "ecr:UploadLayerPart"
       ]
     }
   ]
@@ -82,6 +86,7 @@ resource "aws_ecr_repository_policy" "my_ecr_repo_policy" {
 EOF
 }
 
+#data source that queries information about the AWS account and credentials currently in use
 data "aws_caller_identity" "current" {}
 
 # Optional: Lifecycle policy to clean up old images
