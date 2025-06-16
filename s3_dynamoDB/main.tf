@@ -112,3 +112,10 @@ resource "aws_ecr_lifecycle_policy" "my_ecr_repo_lifecycle" {
 }
 EOF
 }
+
+resource "kubernetes_service_account" "ecr_sa" {
+  metadata {
+    name = "ecr-service-account"
+  }
+}
+
