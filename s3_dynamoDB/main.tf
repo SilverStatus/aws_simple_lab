@@ -69,7 +69,7 @@ resource "aws_ecr_repository_policy" "my_ecr_repo_policy" {
       "Principal": {
         "AWS": [
           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
-          "arn:aws:iam::084828586638:policy/MinikubeECRAccess"
+          "arn:aws:iam::084828586638:user/minikube-ecr-user"
         ]
       },
       "Action": [
