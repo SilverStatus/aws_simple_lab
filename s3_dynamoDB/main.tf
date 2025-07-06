@@ -87,6 +87,7 @@ resource "aws_ecr_repository_policy" "my_ecr_repo_policy" {
 EOF
 }
 
+
 #data source that queries information about the AWS account and credentials currently in use
 data "aws_caller_identity" "current" {}
 
