@@ -1,6 +1,4 @@
 module "networking" {
-    source = "../networking"
-    region = var.region
-    vpc_cidr = var.vpc_cidr
-    project_name = var.project_name
+    source = "./modules/networking"
+    vpc_cidr_block = var.vpc_cidr_block
 }
