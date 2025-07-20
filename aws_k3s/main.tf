@@ -45,7 +45,7 @@ resource "aws_security_group" "instance_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"  # All protocols
-    cidr_blocks = ["118.99.115.251/32"]
+    cidr_blocks = ["182.253.171.137/32"]
   }
 
   # Allow HTTP access
@@ -177,7 +177,7 @@ resource "aws_lb" "k8s_lb" {
   enable_deletion_protection = false
 
   tags = {
-    ManagedBy = "Development"
+    ManagedBy = "Terraform"
   }
   
 }
