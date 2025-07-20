@@ -2,7 +2,7 @@
 resource "aws_security_group" "ec2" {
     name = "${var.project_name}-ec2-sg"
     description = "Security group for EC2 instances"
-    vpc_id = aws_vpc.main.id
+    vpc_id = module.networking.aws_vpc.main.id
     ingress {
         description = "Allow SSH access"
         from_port   = 22
