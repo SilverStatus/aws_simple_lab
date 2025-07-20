@@ -15,3 +15,15 @@ variable "project_name" {
   type        = string
   default     = "k3s-cluster"
 } 
+
+variable "instance_type" {
+  description = "EC2 instance type for the compute nodes"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "key_name" {
+  description = "Name of the SSH key pair to use for the instances"
+  type        = string
+  default     = "test"
+}
