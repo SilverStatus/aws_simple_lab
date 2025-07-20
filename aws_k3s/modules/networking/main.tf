@@ -22,16 +22,16 @@ resource "aws_internet_gateway" "main" {
 }
 
 # Get available availability zones in the region
-data "aws_availability_zone" "available" {
+data "aws_availability_zones" "available" {
   state = "available"   # Only consider available AZs
 }
 
 # Create public subnets in each availability zone
 resource "aws_subnet" "public_subnet" {
-  count = length(data.aws_availability_zone.available.names)
+  count = length(data.aws_availability_zones.available.names)
   vpc_id = aws_vpc.main.id
   cidr_block = cidrsubnet(var.vpc_cidr_block, 8, count.index) # /24 subnets
-  availability_zone = data.aws_availability_zone.available.names[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true # Auto-assign public IPs
     tags = {
         Name = "devops-public-subnet-${count.index}"
@@ -55,7 +55,7 @@ resource "aws_route_table" "public_route_table" {
 }
 # Associate the route table with the public subnet
 resource "aws_route_table_association" "public_subnet_association" {
-  count = length(data.aws_availability_zone.available.names)
+  count = length(data.aws_availability_zones.available.names)
   subnet_id      = aws_subnet.public_subnet[count.index].id
   route_table_id = aws_route_table.public_route_table.id
 } 
