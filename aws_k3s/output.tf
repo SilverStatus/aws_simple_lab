@@ -14,20 +14,6 @@ output "aws_security_group" {
     value = aws_security_group.instance_sg.id
 }
 
-output "instances_details_on_demand" {
-    value = {
-        for instance in aws_instance.k8s_instance_on_demand: 
-        instance.id => {
-            public_ip = instance.public_ip
-            private_ip = instance.private_ip
-            ami_id = instance.ami
-            instance_type = instance.instance_type
-            availability_zone = instance.availability_zone
-            tags = instance.tags
-            }  
-    }
-}
-
 output "instances_details_spot" {
     value = {
         for instance in aws_instance.k8s_instance_spot: 
@@ -45,7 +31,6 @@ output "instances_details_spot" {
 output "instance_public_ips" {
     value = {
         spot_instance = aws_instance.k8s_instance_spot[*].public_ip
-        on_demand_instance = aws_instance.k8s_instance_on_demand[*].public_ip
     }
 
 }
