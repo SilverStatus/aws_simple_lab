@@ -8,6 +8,4 @@ module "compute" {
     project_name = var.project_name
     instance_type = var.instance_type
     key_name = var.key_name
-    vpc_id = module.networking.vpc_id  # VPC ID from networking module
-    public_subnet_ids = module.networking.public_subnet_ids # Subnet IDs
 }
