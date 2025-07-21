@@ -101,7 +101,7 @@ resource "aws_instance" "k3s_instance_spot" {
     }
   }
   tags = {
-    Name        = "${var.project_name}-instanceSP-${count.index}"
+    Name        = "${var.project_name}-instance-${count.index}"
     ManagedBy = "Terraform"
     Project     = "${var.project_name}"
   }
