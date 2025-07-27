@@ -185,12 +185,12 @@ resource "aws_lb" "k3s_lb" {
 # Create target group for the ALB
 resource "aws_lb_target_group" "k3s_tg" {
   name     = "${var.project_name}-target-group"
-  port     = 80
+  port     = 30000
   protocol = "HTTP"
   vpc_id   = aws_vpc.k3s-vpc.id
 
   health_check {
-    path                = "/"
+    path                = "/healthz"
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
