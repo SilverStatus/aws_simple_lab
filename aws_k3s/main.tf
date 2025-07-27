@@ -57,12 +57,20 @@ resource "aws_security_group" "instance_sg" {
   }
 
   # Allow HTTPS access
-    ingress {
+  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  # Allow traffic on port 30000 (for n8n)
+  ingress {
+    from_port   = 30000
+    to_port     = 30000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  } 
 
   # Allow all outbound traffic
   egress {
