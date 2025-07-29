@@ -200,7 +200,7 @@ resource "aws_lb" "k3s_lb" {
 # Create target group for the ALB
 resource "aws_lb_target_group" "k3s_tg" {
   name     = "${var.project_name}-target-group"
-  port     = 30000
+  port     = 80 #30000
   protocol = "HTTP"
   vpc_id   = aws_vpc.k3s-vpc.id
 
@@ -220,13 +220,13 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
   count = length(aws_instance.k3s_instance_spot) 
   target_group_arn = aws_lb_target_group.k3s_tg.arn
   target_id        = aws_instance.k3s_instance_spot[count.index].id
-  port             = 30000
+  port             = 80 #30000
 }
 
 # Create listener for the ALB
 resource "aws_lb_listener" "k3s_listener" {
   load_balancer_arn = aws_lb.k3s_lb.arn
-  port              = 30000
+  port              = 80 #30000
   protocol          = "HTTP"
 
   default_action {
