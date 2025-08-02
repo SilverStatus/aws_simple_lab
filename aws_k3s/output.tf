@@ -29,7 +29,7 @@ output "instances_details_spot" {
 }
 output "instances_details_bastion" {
     value = {
-        for instance in aws_instance.k3s_bastion: 
+        for instance in aws_instance.bastion_instance: 
         instance.id => {
             public_ip = instance.public_ip
             private_ip = instance.private_ip
