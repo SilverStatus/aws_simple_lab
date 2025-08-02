@@ -16,3 +16,10 @@ variable "instance_type_on_spot" {
     default     = "t3.small"
 }
 
+variable "instance_type_on_spot_bastion" {
+    description = "The type of instance to use for the bastion host"
+    type        = string
+    default     = "t3.micro"
+  
+}
+

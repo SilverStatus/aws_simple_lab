@@ -87,9 +87,9 @@ resource "aws_security_group" "instance_sg" {
 }
 
 
-# Create EC2 instances on spot for testing
+# Create EC2 instances on spot for k3s
 resource "aws_instance" "k3s_instance_spot" {
-  count             = 2
+  count             = 1
   ami               = var.ami_selection  
   instance_type     = var.instance_type_on_spot
   subnet_id         = aws_subnet.public_subnet[count.index].id
@@ -110,6 +110,34 @@ resource "aws_instance" "k3s_instance_spot" {
   }
   tags = {
     Name        = "${var.project_name}-instance-${count.index}"
+    ManagedBy = "Terraform"
+    Project     = "${var.project_name}"
+  }
+  
+}
+
+resource "aws_instance" "bastion_instance" {
+  count             = 1
+  ami               = var.ami_selection  
+  instance_type     = var.instance_type_on_spot_bastion
+  subnet_id         = aws_subnet.public_subnet[count.index].id
+  vpc_security_group_ids = [aws_security_group.instance_sg.id]
+  associate_public_ip_address = true
+  key_name = "test"
+  #user_data = filebase64("${path.module}/scripts/control-plane.sh master")
+  lifecycle {
+    create_before_destroy = true
+  }
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      max_price = "0.02"
+      spot_instance_type = "persistent"
+      instance_interruption_behavior = "stop"
+    }
+  }
+  tags = {
+    Name        = "${var.project_name}-bastion-instance-${count.index}"
     ManagedBy = "Terraform"
     Project     = "${var.project_name}"
   }
