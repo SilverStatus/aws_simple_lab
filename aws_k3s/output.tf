@@ -27,10 +27,24 @@ output "instances_details_spot" {
             }  
     }
 }
+output "instances_details_bastion" {
+    value = {
+        for instance in aws_instance.k3s_bastion: 
+        instance.id => {
+            public_ip = instance.public_ip
+            private_ip = instance.private_ip
+            ami_id = instance.ami
+            instance_type = instance.instance_type
+            availability_zone = instance.availability_zone
+            tags = instance.tags
+            }  
+    }
+}
 
 output "instance_public_ips" {
     value = {
         spot_instance = aws_instance.k3s_instance_spot[*].public_ip
+        bastion_instance = aws_instance.k3s_bastion[*].public_ip
     }
 
 }
