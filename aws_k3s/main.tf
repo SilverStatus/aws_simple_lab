@@ -263,7 +263,7 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
   count = length(aws_instance.k3s_instance_spot) 
   target_group_arn = aws_lb_target_group.k3s_tg.arn
   target_id        = aws_instance.k3s_instance_spot[count.index].id
-  port             = 80 #30000
+  port             =  30000
 }
 
 # Create listener for the ALB
