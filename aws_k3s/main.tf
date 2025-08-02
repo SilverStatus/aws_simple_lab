@@ -48,6 +48,14 @@ resource "aws_security_group" "instance_sg" {
     cidr_blocks = ["118.99.102.146/32"]
   }
 
+  # Allow traffic on port 30000 (for n8n) from alb sg
+  ingress {
+    from_port   = 30000
+    to_port     = 32000
+    protocol    = "tcp"
+    security_groups = [aws_security_group.alb_sg.id]  # Allow traffic from ALB security group
+  }
+
   # Allow HTTP access
   ingress {
     from_port   = 80
@@ -208,6 +216,12 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  tags = {
+    Name        = "${var.project_name}-alb-sg"
+    ManagedBy = "Terraform"
+    Project     = "${var.project_name}"
+  }
+
 }
 
 # Create ALB
@@ -228,7 +242,7 @@ resource "aws_lb" "k3s_lb" {
 # Create target group for the ALB
 resource "aws_lb_target_group" "k3s_tg" {
   name     = "${var.project_name}-target-group"
-  port     = 80 #30000
+  port     = 30000 #80 
   protocol = "HTTP"
   vpc_id   = aws_vpc.k3s-vpc.id
 
