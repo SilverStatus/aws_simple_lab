@@ -44,7 +44,7 @@ output "instances_details_bastion" {
 output "instance_public_ips" {
     value = {
         spot_instance = aws_instance.k3s_instance_spot[*].public_ip
-        bastion_instance = aws_instance.k3s_bastion[*].public_ip
+        bastion_instance = aws_instance.bastion_instance[*].public_ip
     }
 
 }
