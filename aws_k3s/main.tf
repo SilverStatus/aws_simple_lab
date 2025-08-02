@@ -245,6 +245,7 @@ resource "aws_lb_target_group" "k3s_tg" {
   port     = 30000 #80 
   protocol = "HTTP"
   vpc_id   = aws_vpc.k3s-vpc.id
+  depends_on = [ aws_lb_listener.k3s_listener ]
 
   health_check {
     path                = "/healthz"
@@ -270,6 +271,7 @@ resource "aws_lb_listener" "k3s_listener" {
   load_balancer_arn = aws_lb.k3s_lb.arn
   port              = 80 #30000
   protocol          = "HTTP"
+  #depends_on = [ aws_lb_target_group.k3s_tg ]
 
   default_action {
     type             = "forward"
