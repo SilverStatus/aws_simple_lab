@@ -45,7 +45,7 @@ resource "aws_security_group" "instance_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"  # All protocols
-    cidr_blocks = ["118.99.102.146/32"]
+    cidr_blocks = ["118.99.102.130/32"]
   }
 
   # Allow traffic on port 30000 (for n8n) from alb sg
