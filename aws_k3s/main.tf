@@ -50,35 +50,35 @@ resource "aws_security_group" "instance_sg" {
 
   # Allow traffic on port 30000 (for n8n) from alb sg
   ingress {
-    from_port   = 30000
-    to_port     = 32000
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  # All protocols
     security_groups = [aws_security_group.alb_sg.id]  # Allow traffic from ALB security group
   }
 
-  # Allow HTTP access
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
-  }
+  # # Allow HTTP access
+  # ingress {
+  #   from_port   = 80
+  #   to_port     = 80
+  #   protocol    = "tcp"
+  #   cidr_blocks = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
+  # }
 
-  # Allow HTTPS access
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
-  }
+  # # Allow HTTPS access
+  # ingress {
+  #   from_port   = 443
+  #   to_port     = 443
+  #   protocol    = "tcp"
+  #   cidr_blocks = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
+  # }
 
-  # Allow traffic on port 81 (nginx proxy manager) from alb
-  ingress {
-    from_port   = 81
-    to_port     = 81
-    protocol    = "tcp"
-    security_groups = [aws_security_group.alb_sg.id]  # Allow traffic from ALB security group
-  }
+  # # Allow traffic on port 81 (nginx proxy manager) from alb
+  # ingress {
+  #   from_port   = 81
+  #   to_port     = 81
+  #   protocol    = "tcp"
+  #   security_groups = [aws_security_group.alb_sg.id]  # Allow traffic from ALB security group
+  # }
 
   # Uncomment the following block to allow traffic on port 30000 from anywhere
   # Allow traffic on port 30000 (for n8n) from anywhere to ec2 instances
