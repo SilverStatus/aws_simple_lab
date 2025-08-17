@@ -255,7 +255,6 @@ resource "aws_lb_target_group" "k3s_tg" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.k3s-vpc.id
 
-  protocol_version = "HTTP2" 
   target_type = "instance" # Use instance type for direct EC2 instance targets
   
 
