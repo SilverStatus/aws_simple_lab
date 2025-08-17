@@ -280,7 +280,7 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
 # Create listener for the ALB
 resource "aws_lb_listener" "k3s_listener" {
   load_balancer_arn = aws_lb.k3s_lb.arn
-  port              = 30081
+  port              = 80
   protocol          = "HTTP"
   depends_on = [ aws_lb_target_group.k3s_tg ]
 
