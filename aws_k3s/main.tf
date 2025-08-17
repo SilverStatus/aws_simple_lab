@@ -287,7 +287,7 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
 # Create listener for the ALB
 resource "aws_lb_listener" "k3s_listener" {
   load_balancer_arn = aws_lb.k3s_lb.arn
-  port              = 81
+  port              = 80
   protocol          = "HTTP"
   depends_on = [ aws_lb_target_group.k3s_tg ]
 
@@ -298,6 +298,21 @@ resource "aws_lb_listener" "k3s_listener" {
 }
 
 # for nginx proxy manager mapping
+# Create ALB
+resource "aws_lb" "k3s_lb_http" {
+  name = "k3s-lb_http"
+  internal = false 
+  load_balancer_type = "application"
+  security_groups = [aws_security_group.alb_sg.id]
+  subnets = aws_subnet.public_subnet[*].id
+  enable_deletion_protection = false
+
+  tags = {
+    ManagedBy = "Terraform"
+  }
+  
+}
+
 # Create target group for the ALB for enable access to nginx proxy manager http
 resource "aws_lb_target_group" "k3s_tg_http" {
   name     = "${var.project_name}-htarget-group"
@@ -329,7 +344,7 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot_http" {
 
 # Create listener for the ALB
 resource "aws_lb_listener" "k3s_listener_http" {
-  load_balancer_arn = aws_lb.k3s_lb.arn
+  load_balancer_arn = aws_lb.k3s_lb_http.arn
   port              = 80
   protocol          = "HTTP"
   depends_on = [ aws_lb_target_group.k3s_tg_http ]
