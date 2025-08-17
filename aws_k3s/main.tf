@@ -211,6 +211,13 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 81
+    to_port     = 81
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # ingress {
   #   from_port   = 30000
   #   to_port     = 30000
@@ -269,12 +276,55 @@ resource "aws_lb_target_group" "k3s_tg" {
   
 }
 
-
+# Create target group attachment for the ALB
 resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
   count = length(aws_instance.k3s_instance_spot) 
   target_group_arn = aws_lb_target_group.k3s_tg.arn
   target_id        = aws_instance.k3s_instance_spot[count.index].id
   port             =  30081 #30000
+}
+
+# Create listener for the ALB
+resource "aws_lb_listener" "k3s_listener" {
+  load_balancer_arn = aws_lb.k3s_lb.arn
+  port              = 81
+  protocol          = "HTTP"
+  depends_on = [ aws_lb_target_group.k3s_tg ]
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.k3s_tg.arn
+  }
+}
+
+# for nginx proxy manager mapping
+# Create target group for the ALB for enable access to nginx proxy manager http
+resource "aws_lb_target_group" "k3s_tg_http" {
+  name     = "${var.project_name}-target-group"
+  port     = 30080  
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.k3s-vpc.id
+
+  target_type = "instance" # Use instance type for direct EC2 instance targets
+  
+
+  health_check {
+    path                = "/"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    matcher             = "200"
+  }
+  
+}
+
+# Create target group attachment for the ALB
+resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
+  count = length(aws_instance.k3s_instance_spot) 
+  target_group_arn = aws_lb_target_group.k3s_tg_http.arn
+  target_id        = aws_instance.k3s_instance_spot[count.index].id
+  port             =  30080 
 }
 
 # Create listener for the ALB
