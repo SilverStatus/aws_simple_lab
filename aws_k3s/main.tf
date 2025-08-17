@@ -320,7 +320,7 @@ resource "aws_lb_target_group" "k3s_tg_http" {
 }
 
 # Create target group attachment for the ALB
-resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
+resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot_http" {
   count = length(aws_instance.k3s_instance_spot) 
   target_group_arn = aws_lb_target_group.k3s_tg_http.arn
   target_id        = aws_instance.k3s_instance_spot[count.index].id
@@ -328,15 +328,15 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
 }
 
 # Create listener for the ALB
-resource "aws_lb_listener" "k3s_listener" {
+resource "aws_lb_listener" "k3s_listener_http" {
   load_balancer_arn = aws_lb.k3s_lb.arn
   port              = 80
   protocol          = "HTTP"
-  depends_on = [ aws_lb_target_group.k3s_tg ]
+  depends_on = [ aws_lb_target_group.k3s_tg_http ]
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.k3s_tg.arn
+    target_group_arn = aws_lb_target_group.k3s_tg_http.arn
   }
 }
 
