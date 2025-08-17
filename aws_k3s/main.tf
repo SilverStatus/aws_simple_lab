@@ -300,7 +300,7 @@ resource "aws_lb_listener" "k3s_listener" {
 # for nginx proxy manager mapping
 # Create target group for the ALB for enable access to nginx proxy manager http
 resource "aws_lb_target_group" "k3s_tg_http" {
-  name     = "${var.project_name}-target-group"
+  name     = "${var.project_name}-http-target-group"
   port     = 30080  
   protocol = "HTTP"
   vpc_id   = aws_vpc.k3s-vpc.id
