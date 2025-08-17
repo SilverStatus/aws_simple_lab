@@ -61,7 +61,7 @@ resource "aws_security_group" "instance_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
   }
 
   # Allow HTTPS access
@@ -69,9 +69,18 @@ resource "aws_security_group" "instance_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
   }
 
+  # Allow traffic on port 81 (nginx proxy manager) from alb
+  ingress {
+    from_port   = 81
+    to_port     = 81
+    protocol    = "tcp"
+    security_groups = [aws_security_group.alb_sg.id]  # Allow traffic from ALB security group
+  }
+
+  # Uncomment the following block to allow traffic on port 30000 from anywhere
   # Allow traffic on port 30000 (for n8n) from anywhere to ec2 instances
   # ingress {
   #   from_port   = 30000
@@ -239,16 +248,19 @@ resource "aws_lb" "k3s_lb" {
   
 }
 
-# Create target group for the ALB
+# Create target group for the ALB for enable access to nginx proxy manager admin
 resource "aws_lb_target_group" "k3s_tg" {
   name     = "${var.project_name}-target-group"
-  port     = 30000 #80 
+  port     = 30081  
   protocol = "HTTP"
   vpc_id   = aws_vpc.k3s-vpc.id
+
+  protocol_version = "HTTP2" 
+  target_type = "instance" # Use instance type for direct EC2 instance targets
   
 
   health_check {
-    path                = "/healthz"
+    path                = "/nginx"
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
@@ -263,13 +275,13 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
   count = length(aws_instance.k3s_instance_spot) 
   target_group_arn = aws_lb_target_group.k3s_tg.arn
   target_id        = aws_instance.k3s_instance_spot[count.index].id
-  port             =  30000
+  port             =  30081 #30000
 }
 
 # Create listener for the ALB
 resource "aws_lb_listener" "k3s_listener" {
   load_balancer_arn = aws_lb.k3s_lb.arn
-  port              = 80 #30000
+  port              = 30081
   protocol          = "HTTP"
   depends_on = [ aws_lb_target_group.k3s_tg ]
 
