@@ -300,7 +300,7 @@ resource "aws_lb_listener" "k3s_listener" {
 # for nginx proxy manager mapping
 # Create ALB
 resource "aws_lb" "k3s_lb_http" {
-  name = "k3s-lb_http"
+  name = "k3s-lb-http"
   internal = false 
   load_balancer_type = "application"
   security_groups = [aws_security_group.alb_sg.id]
