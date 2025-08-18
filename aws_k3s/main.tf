@@ -266,12 +266,12 @@ resource "aws_lb_target_group" "k3s_tg" {
   
 
   health_check {
-    path                = "/nginx"
+    path                = "/"
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 2
-    matcher             = "200"
+    matcher             = "200,302" # Adjusted to match the expected response codes
   }
   
 }
