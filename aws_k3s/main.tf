@@ -106,7 +106,7 @@ resource "aws_security_group" "instance_sg" {
 
 # Create EC2 instances on spot for k3s
 resource "aws_instance" "k3s_instance_spot" {
-  count             = 1
+  count             = 2
   ami               = var.ami_selection  
   instance_type     = var.instance_type_on_spot
   subnet_id         = aws_subnet.public_subnet[count.index].id
