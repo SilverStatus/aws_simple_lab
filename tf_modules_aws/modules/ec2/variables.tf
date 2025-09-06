@@ -58,7 +58,7 @@ variable "ami_selection" {
 variable "count_spot_instances" {
   description = "Number of spot instances to create"
   type        = number
-  default     = 2  
+  default     = ""  
 }
 
 variable "create_spot_instances" {
@@ -70,7 +70,7 @@ variable "create_spot_instances" {
 variable "count_on_demand_instances" {
   description = "Number to create on demand instances"
   type = number
-  default = 1
+  default = ""
 }
 
 variable "create_on_demand_instances" {
