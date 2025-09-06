@@ -84,4 +84,5 @@ variable "create_on_demand_instances" {
 
 variable "k3_instance_spot_ids" {
   description = "list instance spot ids"
+  type = list(string)
 }
