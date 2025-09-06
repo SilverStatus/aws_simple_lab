@@ -22,6 +22,10 @@ module "ec2" {
   vpc_id                  = module.vpc.vpc_id
   vpc_cidr_block          = module.vpc.vpc_cidr_block
   public_subnet_ids       = module.vpc.public_subnet_ids
+
+  k3s_instance_spot_ids = var.k3_instance_spot_ids
+  k3s_target_group_arn  = module.alb.k3s_target_group_arn
+
   create_spot_instances   = "true"
   instance_type_on_spot   = var.instance_type_on_spot
   ami_selection           = var.ami_selection
@@ -43,6 +47,12 @@ module "alb" {
   source = "../../modules/alb"
   vpc_id = module.vpc.vpc_id
   public_subnet_ids = module.vpc.public_subnet_ids
+
+  # Pass instance IDs from ec2 module
+  k3s_instance_spot_ids = module.ec2.k3_instance_spot_ids
+
+  # Pass the target group ARN from the alb module
+  k3s_target_group_arn = aws_lb_target_group.k3s_lb_tg.arn
 
   environment = var.environment
   application = var.application

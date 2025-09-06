@@ -32,3 +32,14 @@ variable "public_subnet_ids" {
   description = "List of public subnet IDs"
   type        = list(string)
 }
+
+#ec2 variable as reference
+# variable "k3s_instance_spot_ids" {
+#   description = "List of instance IDs for the spot instances"
+#   type        = list(string)
+# }
+
+# variable "k3s_target_group_arn" {
+#   description = "ARN of the target group"
+#   type        = string
+# }

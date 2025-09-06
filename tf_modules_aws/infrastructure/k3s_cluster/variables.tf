@@ -81,3 +81,7 @@ variable "create_on_demand_instances" {
   type = bool
   default = true
 }
+
+variable "k3_instance_spot_ids" {
+  description = "list instance spot ids"
+}

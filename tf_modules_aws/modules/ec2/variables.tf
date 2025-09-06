@@ -83,3 +83,13 @@ variable "create_on_demand_instances" {
   type = bool
   default = true
 }
+
+variable "k3s_instance_spot_ids" {
+  description = "List of instance IDs for the spot instances"
+  type        = list(string)
+}
+
+variable "k3s_target_group_arn" {
+  description = "ARN of the target group"
+  type        = string
+}

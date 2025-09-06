@@ -65,7 +65,7 @@ resource "aws_alb" "k3s_lb" {
 resource "aws_lb_target_group" "k3s_lb_tg" {
     name = "${var.application}-target-group"
     port = 80
-    protocol = HTTP
+    protocol = "HTTP"
     vpc_id = var.vpc_id
     target_type = "instance"
 
@@ -93,7 +93,7 @@ resource "aws_lb_target_group" "k3s_lb_tg" {
 
 #create target group attachment
 resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
-    count               = length(aws_instance.k3s_instance_spot) 
+    count               = length(var.k3s_instance_spot) 
     target_group_arn    = aws_lb_target_group.k3s_tg.arn
     target_id           = aws_instance.k3_instance_spot_ids
     port                = 80
