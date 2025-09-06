@@ -1,10 +1,13 @@
 #create output from vpc module declaration in main.tf
 
 output "spot_instance_ips" {
-  value = module.ec2.k3_instance_spot_public_ips
+    value = module.ec2.k3_instance_spot_public_ips
 }
 
 output "on_demand_instances_ips" {
-  value = module.ec2.k3s_instance_on_demand_ips
+    value = module.ec2.k3s_instance_on_demand_ips
 }
 
+output "alb_dns" {
+    value = module.alb.aws_lb.names
+}

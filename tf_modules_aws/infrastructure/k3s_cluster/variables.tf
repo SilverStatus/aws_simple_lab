@@ -9,27 +9,24 @@ variable "vpc_id" {
   type        = string
 }
 variable "vpc_cidr_block" {
-  description = "The CIDR block for the VPC"
-  type        = string  
+  description = "The CIDR block for the VPC" 
 }
-
-# variable "public_subnet_ids" {
-#   description = "List of public subnet IDs"
-#   type        = list(string)
-# }
 
 #identification and tagging variables
 variable "environment" {
   description = "The environment for the resources (e.g., dev, prod)"
   type        = string
+  default     = "Dev"
 }
 variable "application" {
   description = "The application name for tagging purposes"
   type        = string
+  default     = "k3s"
 }
 variable "owner" {
   description = "The owner of the resources for tagging purposes"
   type        = string
+  default     = "Infra"
 }
 variable "cost_center" {
   description = "The cost center for tagging purposes"
@@ -42,10 +39,6 @@ variable "tags" {
 }
 
 #EC2 specific variables
-# variable "public_subnet_ids" {
-#   description = "List of public subnet IDs"
-#   type        = list(string)
-# }
 
 variable "instance_type_on_spot" {
   description = "The type of EC2 instance to create"

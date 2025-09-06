@@ -1,3 +1,7 @@
+output "k3s_instance_spot" {
+  value = aws_instance.k3_instance_spot
+}
+
 output "k3_instance_spot_ids" {
   value = var.create_spot_instances ? [for instance in aws_instance.k3_instance_spot : instance.id] : []
 }
