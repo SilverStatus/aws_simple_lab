@@ -11,5 +11,5 @@ output "k3s_instance_on_demand_ids" {
 }
 
 output "k3s_instance_on_demand_ips" {
-  value = aws_instance.k3s_instance_on_demand[*].public_ip
+  value = var.create_on_demand_instances ? aws_instance.k3s_instance_on_demand[*].public_ip : []
 }
