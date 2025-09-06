@@ -42,7 +42,7 @@ resource "aws_security_group" "instance_sg" {
 
 # Create EC2 instances
 resource "aws_instance" "k3_instance_spot" {
-    for_each        = var.create_spot_instances ? toset([for i in range(var.count_spot_instances) : i]) : {} #create instances only if create_spot_instances is true
+    for_each        = var.create_spot_instances ? toset([for i in range(var.count_spot_instances) : i]) : toset([]) #create instances only if create_spot_instances is true
     ami             = var.ami_selection
     instance_type   = var.instance_type_on_spot
     #subnet_id      = element(module.vpc.public_subnet_ids, 0)  # Use the first public subnet from the VPC module
@@ -73,7 +73,7 @@ resource "aws_instance" "k3_instance_spot" {
 }
 
 resource "aws_instance" "k3s_instance_on_demand" {
-    for_each        = var.create_on_demand_instances ? toset([for i in range(var.count_on_demand_instances) : i]) : {} #create instances only if create_spot_instances is true
+    for_each            = var.create_on_demand_instances ? toset([for i in range(var.count_on_demand_instances) : i]) : toset([]) #create instances only if create_spot_instances is true
     ami               = var.ami_selection  
     instance_type     = var.instance_type_on_demand
     subnet_id         = aws_subnet.public_subnet[count.index].id
