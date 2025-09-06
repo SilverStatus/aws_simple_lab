@@ -26,9 +26,9 @@ module "ec2" {
   instance_type_on_spot   = var.instance_type_on_spot
   ami_selection           = var.ami_selection
   count_spot_instances    = var.count_spot_instances
-  create_on_demand_instances = "false"
-  instance_type_on_demand = var.instance_type_on_demand
-  count_on_demand_instances = var.count_on_demand_instances
+  create_on_demand_instances  = "false"
+  # instance_type_on_demand     = var.instance_type_on_demand
+  # count_on_demand_instances   = var.count_on_demand_instances
 
   environment  = var.environment
   application  = var.application
