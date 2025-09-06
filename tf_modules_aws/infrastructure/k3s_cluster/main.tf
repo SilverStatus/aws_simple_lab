@@ -49,7 +49,7 @@ module "alb" {
   public_subnet_ids = module.vpc.public_subnet_ids
 
   # Pass instance IDs from ec2 module
-  k3s_instance_spot_ids = module.ec2.k3s_instance_spot_ids
+  k3s_instance_spot_ids = module.ec2.k3_instance_spot_ids
 
   # Pass the target group ARN from the alb module
   k3s_target_group_arn = module.alb.k3s_target_group_arn  # Use the output from the alb module
