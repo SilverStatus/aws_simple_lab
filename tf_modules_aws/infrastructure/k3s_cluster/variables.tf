@@ -13,10 +13,10 @@ variable "vpc_cidr_block" {
   type        = string  
 }
 
-variable "public_subnet_ids" {
-  description = "List of public subnet IDs"
-  type        = list(string)
-}
+# variable "public_subnet_ids" {
+#   description = "List of public subnet IDs"
+#   type        = list(string)
+# }
 
 #identification and tagging variables
 variable "environment" {
