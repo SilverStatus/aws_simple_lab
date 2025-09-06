@@ -37,6 +37,12 @@ variable "tags" {
 }
 
 #EC2 specific variables
+
+variable "public_subnet_ids" {
+  description = "List of public subnet IDs"
+  type        = list(string)
+}
+
 variable "instance_type_on_spot" {
   description = "The type of EC2 instance to create"
   type        = string
