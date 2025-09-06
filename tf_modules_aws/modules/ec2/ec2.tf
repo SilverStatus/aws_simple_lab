@@ -48,7 +48,7 @@ resource "aws_instance" "k3_instance_spot" {
     #subnet_id      = element(module.vpc.public_subnet_ids, 0)  # Use the first public subnet from the VPC module
     subnet_id       = var.public_subnet_ids[tonumber(each.key)]
     key_name        = "test"  
-    security_groups = [aws_security_group.instance_sg.name]
+    vpc_security_group_ids = [aws_security_group.instance_sg.id]
     associate_public_ip_address = true
 
     instance_market_options {

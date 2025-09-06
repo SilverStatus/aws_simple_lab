@@ -19,7 +19,7 @@ module "vpc" {
 module "ec2" {
   source                  = "../../modules/ec2"
   region                  = var.region
-  vpc_id                  = module.vpc.aws_vpc
+  vpc_id                  = module.vpc.vpc_id
   vpc_cidr_block          = module.vpc.vpc_cidr_block
   public_subnet_ids       = module.vpc.public_subnet_ids
   create_spot_instances   = "true"
