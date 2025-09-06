@@ -23,7 +23,7 @@ module "ec2" {
   vpc_cidr_block          = module.vpc.vpc_cidr_block
   public_subnet_ids       = module.vpc.public_subnet_ids
 
-  k3s_instance_spot_ids = var.k3_instance_spot_ids
+  k3s_instance_spot_ids = aws_instance.k3_instance_spot_ids
   k3s_target_group_arn  = module.alb.k3s_target_group_arn
 
   create_spot_instances   = "true"
