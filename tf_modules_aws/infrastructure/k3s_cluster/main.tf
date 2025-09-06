@@ -23,7 +23,7 @@ module "ec2" {
   vpc_cidr_block          = module.vpc.vpc_cidr_block
   public_subnet_ids       = module.vpc.public_subnet_ids
 
-  k3s_instance_spot_ids = aws_instance.k3_instance_spot_ids
+  k3s_instance_spot_ids = module.ec2.k3_instance_spot_ids
   k3s_target_group_arn  = module.alb.k3s_target_group_arn
 
   create_spot_instances   = "true"
@@ -52,7 +52,7 @@ module "alb" {
   k3s_instance_spot_ids = module.ec2.k3s_instance_spot_ids
 
   # Pass the target group ARN from the alb module
-  k3s_target_group_arn = aws_lb_target_group.k3s_lb_tg.arn
+  k3s_target_group_arn = module.alb.k3s_target_group_arn  # Use the output from the alb module
 
   environment = var.environment
   application = var.application

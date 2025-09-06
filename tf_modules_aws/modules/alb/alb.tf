@@ -93,9 +93,9 @@ resource "aws_lb_target_group" "k3s_lb_tg" {
 
 #create target group attachment
 resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
-    count               = length(var.k3s_instance_spot) 
-    target_group_arn    = aws_lb_target_group.k3s_tg.arn
-    target_id           = aws_instance.k3_instance_spot_ids
+    count               = length(var.k3s_instance_spot_ids) 
+    target_group_arn    = var.k3s_target_group_arn
+    target_id           = var.k3s_instance_spot_ids[count.index]
     port                = 80
 }
 
