@@ -47,8 +47,6 @@ module "alb" {
   source = "../../modules/alb"
   vpc_id = module.vpc.vpc_id
   public_subnet_ids = module.vpc.public_subnet_ids
-  public_subnet_ids_az = values(module.vpc.public_subnet_ids_by_az)  # Extract only the subnet IDs
-  public_subnet_ids_flat = module.alb.public_subnet_ids_flat
   # Pass instance IDs from ec2 module
   k3s_instance_spot_ids = module.ec2.k3_instance_spot_ids
 

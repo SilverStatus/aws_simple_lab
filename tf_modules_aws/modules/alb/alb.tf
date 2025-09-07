@@ -39,18 +39,13 @@ resource "aws_security_group" "alb_sg" {
   )
 }
 
-locals {
-  public_subnet_ids_flat = flatten(values(var.public_subnet_ids_az))
-}
-
-
 #create alb
 resource "aws_alb" "k3s_lb" {
     name                = "${var.application}-lb"
     internal            = false
     load_balancer_type  = "application"
     security_groups     = [aws_security_group.alb_sg.id]
-    subnets             = var.public_subnet_ids_flat
+    subnets             = var.public_subnet_ids
     enable_deletion_protection = false
 
     tags = merge(
