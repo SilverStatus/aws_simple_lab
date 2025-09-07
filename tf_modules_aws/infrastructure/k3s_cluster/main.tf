@@ -11,7 +11,7 @@ module "vpc" {
   environment  = "Dev"
   application  = "k3s"
   owner        = "Infrastructure-Team"
-  cost_center  = "Cloud_&_Infra"
+  cost_center  = "cloudInfra"
   
 }
 
@@ -36,7 +36,7 @@ module "ec2" {
   environment  = "Dev"
   application  = "k3s"
   owner        = "Infrastructure-Team"
-  cost_center  = "Cloud_&_Infra"
+  cost_center  = "cloudInfra"
 
   
 }
@@ -54,7 +54,7 @@ module "alb" {
   environment  = "Dev"
   application  = "k3s"
   owner        = "Infrastructure-Team"
-  cost_center  = "Cloud_&_Infra"
+  cost_center  = "cloudInfra"
 
 }
 
