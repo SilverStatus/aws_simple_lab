@@ -32,6 +32,10 @@ variable "public_subnet_ids_az" {
   #type        = list(string)
 }
 
+variable public_subnet_ids_flat {
+  description = "the flat list of strings"
+}
+
 #variable for alb
 variable "public_subnet_ids" {
   description = "List of public subnet IDs"
