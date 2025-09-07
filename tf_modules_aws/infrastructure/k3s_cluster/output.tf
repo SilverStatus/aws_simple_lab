@@ -9,5 +9,5 @@ output "on_demand_instances_ips" {
 }
 
 output "alb_dns" {
-    value = module.alb.aws_lb.names
+    value = module.alb.aws_lb.name
 }
