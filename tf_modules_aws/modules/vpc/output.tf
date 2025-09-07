@@ -23,6 +23,6 @@ output "vpc_cidr_block" {
 output "public_subnet_ids_by_az" {
   value = tomap({
     for az, subnets in { for subnet in aws_subnet.public_subnet : subnet.availability_zone => subnet } :
-    az => subnets[0].id
+    az => subnets.id
   })
 }
