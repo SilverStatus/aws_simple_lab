@@ -29,7 +29,7 @@ variable "vpc_id" {
 
 variable "public_subnet_ids_az" {
   description = "List of public subnet IDs, one per Availability Zone"
-  type        = list(string)
+  #type        = list(string)
 }
 
 #variable for alb
