@@ -7,5 +7,5 @@ output "k3s_target_group_arn" {
 }
 
 output "k3s_lb_arn" {
-  value = aws_lb.k3s_lb.arn
+  value = aws_alb.k3s_lb.arn
 }
