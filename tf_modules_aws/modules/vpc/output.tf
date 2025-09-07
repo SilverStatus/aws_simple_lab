@@ -14,4 +14,6 @@ output "vpc_cidr_block" {
     value = aws_vpc.main_vpc
 }
 
-
+output "public_subnet_ids_by_az" {
+  value = { for subnet in aws_subnet.public_subnet : subnet.availability_zone => subnet.id }
+}

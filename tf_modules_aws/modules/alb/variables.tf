@@ -27,6 +27,11 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "public_subnet_ids_az" {
+  description = "List of public subnet IDs, one per Availability Zone"
+  type        = list(string)
+}
+
 #variable for alb
 variable "public_subnet_ids" {
   description = "List of public subnet IDs"
@@ -43,4 +48,5 @@ variable "k3s_target_group_arn" {
   description = "ARN of the target group"
   type        = string
 }
+
 
