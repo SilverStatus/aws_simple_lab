@@ -22,7 +22,7 @@ resource "aws_subnet" "public_subnet" {
   count = length(data.aws_availability_zones.azs.names)
   vpc_id                  = aws_vpc.main_vpc.id
   cidr_block              = cidrsubnet(var.vpc_cidr_block, 8, count.index)
-  availability_zone       = data.aws_availability_zones.azs.names[0]
+  availability_zone       = data.aws_availability_zones.azs.names[count.index]
   map_public_ip_on_launch = true
 
   tags = merge(
