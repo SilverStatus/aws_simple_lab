@@ -8,11 +8,10 @@ module "vpc" {
   vpc_id         = var.vpc_id
   vpc_cidr_block = var.vpc_cidr_block
 
-  environment  = var.environment
-  application  = var.application
-  owner        = var.owner
-  cost_center  = var.cost_center
-  tags         = var.tags
+  environment  = "Dev"
+  application  = "k3s"
+  owner        = "Infrastructure-Team"
+  cost_center  = "Cloud & Infra"
   
 }
 
@@ -37,8 +36,7 @@ module "ec2" {
   environment  = "Dev"
   application  = "k3s"
   owner        = "Infrastructure-Team"
-  cost_center  = var.cost_center
-  tags         = var.tags
+  cost_center  = "Cloud & Infra"
 
   
 }
