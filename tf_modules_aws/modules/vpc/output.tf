@@ -21,8 +21,9 @@ output "vpc_cidr_block" {
 # 4. No if Condition: The for expression automatically overwrites duplicate keys (i.e., if multiple subnets exist in the same Availability Zone, only the last one is kept).
 
 output "public_subnet_ids_by_az" {
-  value = tomap({
-    for az, subnets in { for subnet in aws_subnet.public_subnet : subnet.availability_zone => subnet } :
-    az => subnets.id
-  })
+  value = {
+    for az, subnets in { for subnet in aws_subnet.public_subnet : subnet.availability_zone => subnet.id ... } :
+    az => subnets
+  }
 }
+
