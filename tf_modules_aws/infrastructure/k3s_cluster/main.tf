@@ -34,9 +34,9 @@ module "ec2" {
   # instance_type_on_demand     = var.instance_type_on_demand
   # count_on_demand_instances   = var.count_on_demand_instances
 
-  environment  = var.environment
-  application  = var.application
-  owner        = var.owner
+  environment  = "Dev"
+  application  = "k3s"
+  owner        = "Infrastructure-Team"
   cost_center  = var.cost_center
   tags         = var.tags
 
