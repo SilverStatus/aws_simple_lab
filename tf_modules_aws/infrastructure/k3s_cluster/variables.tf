@@ -69,7 +69,7 @@ variable "create_spot_instances" {
 variable "count_on_demand_instances" {
   description = "Number to create on demand instances"
   type = number
-  default = 1
+  default = 2
 }
 
 variable "create_on_demand_instances" {

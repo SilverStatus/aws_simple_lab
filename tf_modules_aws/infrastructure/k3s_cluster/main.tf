@@ -29,9 +29,9 @@ module "ec2" {
   instance_type_on_spot   = var.instance_type_on_spot
   ami_selection           = var.ami_selection
   count_spot_instances    = var.count_spot_instances
-  create_on_demand_instances  = "false"
-  # instance_type_on_demand     = var.instance_type_on_demand
-  # count_on_demand_instances   = var.count_on_demand_instances
+  create_on_demand_instances  = "true"
+  instance_type_on_demand     = var.instance_type_on_demand
+  count_on_demand_instances   = var.count_on_demand_instances
 
   environment  = "Dev"
   application  = "k3s"
@@ -51,12 +51,11 @@ module "alb" {
   # Pass the target group ARN from the alb module
   k3s_target_group_arn = module.alb.k3s_target_group_arn  # Use the output from the alb module
 
-  environment = var.environment
-  application = var.application
-  owner       = var.owner
-  cost_center = var.cost_center
-  tags        = var.tags
-  
+  environment  = "Dev"
+  application  = "k3s"
+  owner        = "Infrastructure-Team"
+  cost_center  = "Cloud & Infra"
+
 }
 
 
