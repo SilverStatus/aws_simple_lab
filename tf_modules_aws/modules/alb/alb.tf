@@ -64,7 +64,7 @@ resource "aws_alb" "k3s_lb" {
 #create alb target group
 resource "aws_lb_target_group" "k3s_lb_tg" {
     name = "${var.application}-target-group"
-    port = 80
+    port = 32155 #80
     protocol = "HTTP"
     vpc_id = var.vpc_id
     target_type = "instance"
@@ -96,7 +96,7 @@ resource "aws_lb_target_group_attachment" "k3s_tg_attachment_spot" {
     count               = length(var.k3s_instance_spot_ids) 
     target_group_arn    = var.k3s_target_group_arn
     target_id           = var.k3s_instance_spot_ids[count.index]
-    port                = 80
+    port                = 32155 #80
 }
 
 #create listener for target group
