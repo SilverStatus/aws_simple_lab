@@ -25,7 +25,7 @@ resource "aws_security_group" "instance_sg" {
         from_port = 30000
         to_port = 32767
         protocol = "tcp"
-        cidr_blocks = [var.alb_sg_1]
+        security_groups = [var.alb_sg_1]
     }
 
     # Allow all outbound traffic
