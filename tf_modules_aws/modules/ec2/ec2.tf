@@ -22,9 +22,9 @@ resource "aws_security_group" "instance_sg" {
 
     # Allow access to specific port from alb sg
     ingress {
-        from_port = 30000
-        to_port = 32767
-        protocol = "tcp"
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
         security_groups = [var.alb_sg_1]
     }
 
