@@ -20,6 +20,14 @@ resource "aws_security_group" "instance_sg" {
         cidr_blocks = ["118.99.102.142/32"]
     }
 
+    # Allow access to specific port from alb sg
+    ingress {
+        from_port = 30000
+        to_port = 32767
+        protocol = "tcp"
+        cidr_blocks = [aws_security_group.alb_sg_1]
+    }
+
     # Allow all outbound traffic
     egress {
       from_port   = 0
