@@ -93,3 +93,8 @@ variable "k3s_target_group_arn" {
   description = "ARN of the target group"
   type        = string
 }
+
+variable "alb_sg_1" {
+  description = "security group ID for ALB"
+  type = string
+}

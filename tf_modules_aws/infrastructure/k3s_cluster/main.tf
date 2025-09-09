@@ -24,7 +24,7 @@ module "ec2" {
 
   k3s_instance_spot_ids = module.ec2.k3_instance_spot_ids
   k3s_target_group_arn  = module.alb.k3s_target_group_arn
-  alb_sg_1              = module.alb.alb_sg_1
+  alb_sg_1                = module.alb.alb_sg_1  # Pass the security group ID from the alb module
 
   create_spot_instances   = "true"
   instance_type_on_spot   = var.instance_type_on_spot

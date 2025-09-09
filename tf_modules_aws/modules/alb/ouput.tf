@@ -12,5 +12,5 @@ output "k3s_lb_arn" {
 
 # set ouput for alb sg
 output "alb_sg_1" {
-  value = aws_security_group.alb_sg.id 
+  value = aws_security_group.alb_sg.id
 }
