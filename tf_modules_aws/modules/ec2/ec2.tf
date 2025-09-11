@@ -17,7 +17,7 @@ resource "aws_security_group" "instance_sg" {
         from_port   = 0
         to_port     = 0
         protocol    = "-1"  # All protocols
-        cidr_blocks = ["118.99.102.142/32"]
+        cidr_blocks = ["182.253.168.177/32"]
     }
 
     # Allow access to specific port from alb sg
