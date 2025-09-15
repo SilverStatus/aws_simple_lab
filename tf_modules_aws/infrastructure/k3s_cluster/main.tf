@@ -8,10 +8,10 @@ module "vpc" {
   vpc_id         = var.vpc_id
   vpc_cidr_block = var.vpc_cidr_block
 
-  environment  = "Dev"
-  application  = "k3s"
-  owner        = "Infrastructure-Team"
-  cost_center  = "cloudInfra"
+  environment  = var.environment
+  application  = var.application
+  owner        = var.owner
+  cost_center  = var.cost_center
   
 }
 
@@ -34,10 +34,10 @@ module "ec2" {
   instance_type_on_demand     = var.instance_type_on_demand
   count_on_demand_instances   = var.count_on_demand_instances
 
-  environment  = "Dev"
-  application  = "k3s"
-  owner        = "Infrastructure-Team"
-  cost_center  = "cloudInfra"
+  environment  = var.environment
+  application  = var.application
+  owner        = var.owner
+  cost_center  = var.cost_center
 
   
 }
@@ -52,10 +52,10 @@ module "alb" {
   # Pass the target group ARN from the alb module
   k3s_target_group_arn = module.alb.k3s_target_group_arn  # Use the output from the alb module
 
-  environment  = "Dev"
-  application  = "k3s"
-  owner        = "Infrastructure-Team"
-  cost_center  = "cloudInfra"
+  environment  = var.environment
+  application  = var.application
+  owner        = var.owner
+  cost_center  = var.cost_center
 
 }
 
