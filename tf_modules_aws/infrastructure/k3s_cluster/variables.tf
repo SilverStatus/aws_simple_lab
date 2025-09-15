@@ -8,6 +8,7 @@ variable "region" {
 variable "vpc_id" {
   description = "The ID of the VPC where resources will be deployed"
   type        = string
+  default     = "" #test to disable vpc.tfvars
 }
 variable "vpc_cidr_block" {
   description = "The CIDR block for the VPC" 
