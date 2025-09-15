@@ -2,6 +2,7 @@
 variable "region" {
   description = "The AWS region to deploy resources in"
   type        = string
+  default     = "us-east-1" #test to disable vpc.tfvars
 }
 
 variable "vpc_id" {
@@ -10,6 +11,7 @@ variable "vpc_id" {
 }
 variable "vpc_cidr_block" {
   description = "The CIDR block for the VPC" 
+  default = "10.0.0.0/16" #test to disable vpc.tfvars
 }
 
 #identification and tagging variables
