@@ -29,3 +29,10 @@ variable "subnet_ids" {
   type        = list(string)
   default     = [] #fill with vpc id after create vpc module
 }
+
+#iam role eks
+variable "eks_cluster_iam_role" {
+  description = "The ARN of the IAM role to use for the EKS cluster"
+  type        = string
+  default     = "" #fill with eks cluster role arn after create iam module
+}

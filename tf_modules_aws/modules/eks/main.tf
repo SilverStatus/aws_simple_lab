@@ -10,8 +10,8 @@ resource "aws_eks_cluster" "eks_cluster" {
     }
 
     depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster
-  ]
+        var.eks_cluster_iam_role
+    ]
 }
 
 resource "aws_eks_addon" "vpc_cni" {
