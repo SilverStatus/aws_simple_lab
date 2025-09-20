@@ -10,26 +10,26 @@ resource "aws_eks_cluster" "eks_cluster" {
     }
 
     depends_on = [
-    aws_iam_role_policy_attachment.cluster
+    aws_iam_role_policy_attachment.eks_cluster
   ]
 }
 
 resource "aws_eks_addon" "vpc_cni" {
-  cluster_name      = aws_eks_cluster.eks.name
+  cluster_name      = aws_eks_cluster.eks_cluster.name
   addon_name        = "vpc-cni"
   addon_version     = "v1.14.1-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 }
 
 resource "aws_eks_addon" "kube_proxy" {
-  cluster_name      = aws_eks_cluster.eks.name
+  cluster_name      = aws_eks_cluster.eks_cluster.name
   addon_name        = "kube-proxy"
   addon_version     = "v1.27.3-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 }
 
 resource "aws_eks_addon" "coredns" {
-  cluster_name      = aws_eks_cluster.eks.name
+  cluster_name      = aws_eks_cluster.eks_cluster.name
   addon_name        = "coredns"
   addon_version     = "v1.10.3-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
