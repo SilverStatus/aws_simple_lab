@@ -27,5 +27,5 @@ variable "vpc_id" {
 variable "subnet_ids" {
   description = "The ID of the subnets to use for the EKS cluster"
   type        = list(string)
-  default     = [var.vpc_id] #fill with vpc id after create vpc module
+  default     = [] #fill with vpc id after create vpc module
 }
