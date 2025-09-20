@@ -21,6 +21,6 @@ module "eks_cluster" {
   cluster_name   = var.cluster_name
   role_arn       = var.role_arn
   eks_version    = var.eks_version
-  subnet_ids     = var.subnet_ids
+  subnet_ids     = module.vpc.public_subnet_ids
   
 }
