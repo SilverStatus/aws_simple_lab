@@ -23,7 +23,7 @@ module "iam" {
 module "eks_cluster" {
   source         = "../../modules/eks"
   cluster_name   = var.cluster_name
-  role_arn       = module.iam.eks_cluster_iam_role
+  role_arn       = module.iam.eks_cluster_iam_role_arn
   eks_version    = var.eks_version
   subnet_ids     = module.vpc.public_subnet_ids
   
