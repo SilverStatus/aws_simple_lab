@@ -19,7 +19,7 @@ module "vpc" {
 module "eks_cluster" {
   source         = "../../modules/eks"
   cluster_name   = var.cluster_name
-  role_arn       = var.role_arn
+  role_arn       = module.iam.eks_cluster_iam_role
   eks_version    = var.eks_version
   subnet_ids     = module.vpc.public_subnet_ids
   
