@@ -2,7 +2,7 @@
 variable "cluster_name" {
   description = "The name of the EKS cluster"
   type        = string
-  default     = "eks-cluster-trial"
+  default     = "eks-cluster"
 }
 
 variable "role_arn" {
