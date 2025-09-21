@@ -48,11 +48,11 @@ variable "cluster_name" {
   type        = string
   default     = ""
 }
-# variable "role_arn" {
-#   description = "The ARN of the IAM role for the EKS cluster"
-#   type        = string
-#   default     = ""
-# }
+variable "role_arn" {
+  description = "The ARN of the IAM role for the EKS cluster"
+  type        = string
+  default     = ""
+}
 variable "eks_version" {
   description = "The version of EKS to deploy"
   type        = string
