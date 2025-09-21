@@ -5,11 +5,11 @@ variable "cluster_name" {
   default     = "eks-cluster-trial"
 }
 
-# variable "role_arn" {
-#   description = "The ARN of the IAM role to use for the EKS cluster"
-#   type        = string
-#   default     = aws_iam_role.eks_cluster.arn #fill with eks cluster role arn after create iam module
-# }
+variable "role_arn" {
+  description = "The ARN of the IAM role to use for the EKS cluster"
+  type        = string
+  default     = "" #fill with eks cluster role arn after create iam module
+}
 
 variable "eks_version" {
   description = "The version of EKS to use"
