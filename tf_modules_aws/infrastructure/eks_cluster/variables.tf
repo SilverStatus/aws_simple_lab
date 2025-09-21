@@ -56,7 +56,7 @@ variable "role_arn" {
 variable "eks_version" {
   description = "The version of EKS to deploy"
   type        = string
-  default     = ""
+  default     = "1.30"
 }
 variable "subnet_ids" {
   description = "A list of subnet IDs to use for the EKS cluster"
