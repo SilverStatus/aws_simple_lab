@@ -46,17 +46,17 @@ variable "tags" {
 variable "cluster_name" {
   description = "The name of the EKS cluster"
   type        = string
-  default     = "eks-cluster-trial"
+  default     = ""
 }
 variable "role_arn" {
   description = "The ARN of the IAM role for the EKS cluster"
   type        = string
-  default     = ""
+  default     = aws_iam_role.eks_cluster.arn
 }
 variable "eks_version" {
   description = "The version of EKS to deploy"
   type        = string
-  default     = "1.27"
+  default     = ""
 }
 variable "subnet_ids" {
   description = "A list of subnet IDs to use for the EKS cluster"
