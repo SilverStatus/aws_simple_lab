@@ -2,13 +2,13 @@
 variable "cluster_name" {
   description = "The name of the EKS cluster"
   type        = string
-  default     = "eks-cluster"
+  default     = ""
 }
 
 variable "role_arn" {
   description = "The ARN of the IAM role to use for the EKS cluster"
   type        = string
-  default     = "" #fill with eks cluster role arn after create iam module
+  # default     = "" #fill with eks cluster role arn after create iam module
 }
 
 variable "eks_version" {

@@ -46,7 +46,7 @@ variable "tags" {
 variable "cluster_name" {
   description = "The name of the EKS cluster"
   type        = string
-  default     = ""
+  default     = "eks-cluster"
 }
 variable "role_arn" {
   description = "The ARN of the IAM role for the EKS cluster"
