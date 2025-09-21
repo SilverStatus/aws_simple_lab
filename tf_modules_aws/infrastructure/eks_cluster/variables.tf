@@ -51,7 +51,7 @@ variable "cluster_name" {
 # variable "role_arn" {
 #   description = "The ARN of the IAM role for the EKS cluster"
 #   type        = string
-#   default     = aws_iam_role.eks_cluster.arn
+#   default     = ""
 # }
 variable "eks_version" {
   description = "The version of EKS to deploy"
@@ -63,3 +63,5 @@ variable "subnet_ids" {
   type        = list(string)
   default     = []
 }
+
+
