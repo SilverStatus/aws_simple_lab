@@ -16,6 +16,10 @@ module "vpc" {
   
 }
 
+module "iam" {
+  source         = "../../modules/iam"
+}
+
 module "eks_cluster" {
   source         = "../../modules/eks"
   cluster_name   = var.cluster_name
