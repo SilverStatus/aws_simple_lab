@@ -1,5 +1,9 @@
 data "aws_availability_zones" "azs" {
-  state = "available"  
+  state = "available" 
+  filter {
+    name   = "zone-name"
+    values = ["us-east-1a", "us-east-1b", "us-east-1c"]  # Using first 3 AZs for better distribution
+  } 
 }
 
 resource "aws_vpc" "main_vpc" {
