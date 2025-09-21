@@ -10,7 +10,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     }
 
     depends_on = [
-        module.eks_cluster.eks_cluster_iam_role
+        var.eks_cluster_iam_role  # Use the variable instead of module reference
     ]
 }
 
