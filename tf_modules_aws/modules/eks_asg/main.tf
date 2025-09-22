@@ -1,7 +1,7 @@
 resource "aws_eks_node_group" "eks_workers_spot" {
   cluster_name    = var.aws_eks_cluster_name
   node_group_name = "eks-${var.aws_eks_cluster_name}-worker-group"
-  node_role_arn   = aws_iam_role.eks_node_group.arn
+  node_role_arn   = var.node_role_arn
   subnet_ids      = var.subnet_ids
   capacity_type   = "SPOT"
 
@@ -20,7 +20,8 @@ resource "aws_eks_node_group" "eks_workers_spot" {
     ManagedBy = "Terraform"
   }
   depends_on = [
-    aws_eks_cluster.eks,
+    aws_eks_cluster.eks_cluster_name,
+    aws_iam_role.eks_node_group,
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
@@ -30,7 +31,7 @@ resource "aws_eks_node_group" "eks_workers_spot" {
 resource "aws_eks_node_group" "eks_workers_on_demand" {
   cluster_name    = var.aws_eks_cluster_name
   node_group_name = "eks-${var.aws_eks_cluster_name}-worker-group-on-demand"
-  node_role_arn   = aws_iam_role.eks_node_group.arn
+  node_role_arn   = var.node_role_arn
   subnet_ids      = var.subnet_ids
   capacity_type   = "ON_DEMAND"
 
@@ -49,7 +50,8 @@ resource "aws_eks_node_group" "eks_workers_on_demand" {
     ManagedBy = "Terraform"
   }
   depends_on = [
-    aws_eks_cluster.eks,
+    aws_eks_cluster.eks_cluster_name,
+    aws_iam_role.eks_node_group,
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,

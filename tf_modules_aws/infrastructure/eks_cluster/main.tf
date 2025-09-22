@@ -31,7 +31,9 @@ module "eks_cluster" {
 
 module "eks_asg" {
   source         = "../../modules/eks_asg" 
-  subnet_ids     = module.vpc.public_subnet_ids   
+  subnet_ids     = module.vpc.public_subnet_ids 
+  node_role_arn  = module.iam.eks_node_group_arn
+  
   # Spot instance configuration
   desired_nodes_spot = 2
   max_nodes_spot     = 3
