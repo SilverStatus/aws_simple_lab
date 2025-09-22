@@ -39,7 +39,7 @@ variable "min_nodes_spot" {
 variable "os_instance_type" {
   description = "Operating system instance type to use for the nodes in the node group"
   type        = string
-  default     = "ami-084568db4383264d4"  # Ubuntu 22.04 AMI (64-bit, non-ARM)
+  default     = "AL2023_x86_64_STANDARD"  # Ubuntu 22.04 AMI (64-bit, non-ARM)
 }
 
 variable "node_instance_type_spot" {
