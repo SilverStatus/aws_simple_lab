@@ -71,3 +71,12 @@ variable "node_instance_type_on_demand" {
   type        = string
   default     = "t2.micro"
 }
+
+#iam roles
+variable "node_role_arn" {
+  description = "The ARN of the IAM role to use for the EKS node group"
+  type        = string
+  default     = "" #fill with eks node group role arn after create iam module
+}
+
+
