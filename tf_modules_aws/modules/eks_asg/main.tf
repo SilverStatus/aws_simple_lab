@@ -19,11 +19,11 @@ resource "aws_eks_node_group" "eks_workers_spot" {
     Name = "eks-worker-node_spot"
     ManagedBy = "Terraform"
   }
-  depends_on = [
-    aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
-  ]
+  # depends_on = [
+  #   aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
+  #   aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
+  #   aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
+  # ]
 }
 
 resource "aws_eks_node_group" "eks_workers_on_demand" {
@@ -47,9 +47,9 @@ resource "aws_eks_node_group" "eks_workers_on_demand" {
     Name = "eks-worker-node_on_demand"
     ManagedBy = "Terraform"
   }
-  depends_on = [
-    aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
-  ]
+  # depends_on = [
+  #   aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
+  #   aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
+  #   aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
+  # ]
 }
