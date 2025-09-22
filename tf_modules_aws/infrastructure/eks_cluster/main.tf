@@ -28,3 +28,13 @@ module "eks_cluster" {
   subnet_ids     = module.vpc.public_subnet_ids
   
 }
+
+module "eks_asg" {
+  source         = "../../modules/eks_asg" 
+  subnet_ids     = module.vpc.public_subnet_ids   
+  # Spot instance configuration
+  desired_nodes_spot = 2
+  max_nodes_spot     = 3
+  min_nodes_spot     = 1
+  node_instance_type_spot = "t3.medium"
+}

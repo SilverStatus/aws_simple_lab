@@ -64,4 +64,6 @@ variable "subnet_ids" {
   default     = []
 }
 
+#eks node group variables
+
 
