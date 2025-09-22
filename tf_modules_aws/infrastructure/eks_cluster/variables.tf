@@ -65,5 +65,13 @@ variable "subnet_ids" {
 }
 
 #eks node group variables
+variable "node_role_arn" {
+  description = "The ARN of the IAM role for the EKS node group"
+  type        = string
+  default     = ""
+}
+
+
+
 
 
