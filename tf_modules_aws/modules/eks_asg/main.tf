@@ -20,7 +20,6 @@ resource "aws_eks_node_group" "eks_workers_spot" {
     ManagedBy = "Terraform"
   }
   depends_on = [
-    aws_eks_cluster.eks_cluster_name,
     aws_iam_role.eks_node_group,
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
@@ -50,7 +49,6 @@ resource "aws_eks_node_group" "eks_workers_on_demand" {
     ManagedBy = "Terraform"
   }
   depends_on = [
-    aws_eks_cluster.eks_cluster_name,
     aws_iam_role.eks_node_group,
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
