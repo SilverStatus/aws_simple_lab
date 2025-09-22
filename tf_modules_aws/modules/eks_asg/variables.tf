@@ -14,7 +14,7 @@ variable "vpc_id" {
 variable "subnet_ids" {
   description = "The ID of the subnets to use for the EKS cluster"
   type        = list(string)
-  default     = [var.vpc_id] #fill with vpc id after create vpc module
+  default     = [] #fill with vpc id after create vpc module
 }
 
 # asg variables
@@ -45,7 +45,7 @@ variable "os_instance_type" {
 variable "node_instance_type_spot" {
   description = "Instance type to use for the nodes in the node group"
   type        = string
-  default     = ["t2.micro", "t2.small"]
+  default     = "t3.small"
 }
 
 variable "desired_nodes_on_demand" {
