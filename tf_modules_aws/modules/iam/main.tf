@@ -54,14 +54,14 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOn
 
 # Create access entries and policy associations for admin user
 resource "aws_eks_access_entry" "admin" {
-  cluster_name      = var.aws_eks_cluster_name
+  cluster_name      = var.cluster_name
   principal_arn     = "arn:aws:account::084828586638:account"
   kubernetes_groups = ["system:masters"]
   type              = "STANDARD"
 }
 
 resource "aws_eks_access_policy_association" "admin" {
-  cluster_name  = var.aws_eks_cluster_name
+  cluster_name  = var.cluster_name
   principal_arn = "arn:aws:account::084828586638:account"
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
   access_scope {
