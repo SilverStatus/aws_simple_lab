@@ -16,10 +16,6 @@ output "cluster_endpoint" {
   value       = module.eks_cluster.cluster_endpoint
 }
 
-output "region" {
-  description = "AWS region"
-  value       = var.region
-}
 
 
 
