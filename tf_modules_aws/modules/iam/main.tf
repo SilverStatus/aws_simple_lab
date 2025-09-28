@@ -56,7 +56,7 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOn
 resource "aws_eks_access_entry" "admin" {
   cluster_name      = var.cluster_name
   principal_arn     = "arn:aws:iam::084828586638:root"
-  kubernetes_groups = ["system:masters"]
+  kubernetes_groups = ["eks-console-dashboard-full-access-group"]
   type              = "STANDARD"
 }
 
@@ -65,6 +65,6 @@ resource "aws_eks_access_policy_association" "admin" {
   principal_arn = "arn:aws:iam::084828586638:root"
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
   access_scope {
-    type = "ALL"
+    type = "cluster"
   }
 }
