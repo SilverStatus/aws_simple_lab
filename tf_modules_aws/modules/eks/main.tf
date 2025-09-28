@@ -8,6 +8,9 @@ resource "aws_eks_cluster" "eks_cluster" {
         endpoint_public_access = true
         public_access_cidrs = ["0.0.0.0/0"]  
     }
+    # Authentication mode requires AWS provider version 5.0.0 or later
+    # Set authentication mode to API to enable access entries and policy associations
+    authentication_mode = "API_AND_CONFIG_MAP"
 
     depends_on = [
         var.eks_cluster_iam_role  # Use the variable instead of module reference
