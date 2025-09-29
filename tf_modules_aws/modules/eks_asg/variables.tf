@@ -21,19 +21,19 @@ variable "subnet_ids" {
 variable "desired_nodes_spot" {
   description = "Desired number of nodes in the node group"
   type        = number
-  default     = ""
+  default     = "0"
 }
 
 variable "max_nodes_spot" {
   description = "Maximum number of nodes in the node group"
   type        = number
-  default     = ""
+  default     = "0"
 }
 
 variable "min_nodes_spot" {
   description = "Minimum number of nodes in the node group"
   type        = number
-  default     = ""
+  default     = "0"
 }
 
 variable "os_instance_type" {
@@ -51,19 +51,19 @@ variable "node_instance_type_spot" {
 variable "desired_nodes_on_demand" {
   description = "Desired number of nodes in the node group"
   type        = number
-  default     = ""
+  default     = "0"
 }
 
 variable "max_nodes_on_demand" {
   description = "Maximum number of nodes in the node group"
   type        = number
-  default     = ""
+  default     = "0"
 }
 
 variable "min_nodes_on_demand" {
   description = "Minimum number of nodes in the node group"
   type        = number
-  default     = ""
+  default     = "0"
 }
 
 variable "node_instance_type_on_demand" {
@@ -76,7 +76,7 @@ variable "node_instance_type_on_demand" {
 variable "node_role_arn" {
   description = "The ARN of the IAM role to use for the EKS node group"
   type        = string
-  default     = "" #fill with eks node group role arn after create iam module
+  default     = "0" #fill with eks node group role arn after create iam module
 }
 
 
