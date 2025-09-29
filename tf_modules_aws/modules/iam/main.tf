@@ -59,7 +59,7 @@ resource "aws_eks_access_entry" "admin" {
   kubernetes_groups = ["eks-console-dashboard-full-access-group"]
   type              = "STANDARD"
 
-  depends_on = [module.eks_cluster]   # <--- This is critical
+  depends_on = [var.cluster_name]   # <--- This is critical
 
 }
 
@@ -70,7 +70,7 @@ resource "aws_eks_access_policy_association" "admin" {
   access_scope {
     type = "cluster"
   }
-  depends_on = [aws_eks_access_entry.admin]
+  depends_on = [var.cluster_name]
 }
 
 resource "aws_eks_access_entry" "adam" {
@@ -79,7 +79,7 @@ resource "aws_eks_access_entry" "adam" {
   kubernetes_groups = ["eks-console-dashboard-full-access-group"]
   type              = "STANDARD"
 
-  depends_on = [module.eks_cluster]   # <--- This is critical
+  depends_on = [var.cluster_name]   # <--- This is critical
 
 }
 
@@ -90,5 +90,5 @@ resource "aws_eks_access_policy_association" "adam" {
   access_scope {
     type = "cluster"
   }
-  depends_on = [aws_eks_access_entry.admin]
+  depends_on = [var.cluster_name]
 }
