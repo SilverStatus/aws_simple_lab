@@ -58,6 +58,9 @@ resource "aws_eks_access_entry" "admin" {
   principal_arn     = "arn:aws:iam::084828586638:root"
   kubernetes_groups = ["eks-console-dashboard-full-access-group"]
   type              = "STANDARD"
+
+  depends_on = [module.eks_cluster]   # <--- This is critical
+
 }
 
 resource "aws_eks_access_policy_association" "admin" {
@@ -67,4 +70,25 @@ resource "aws_eks_access_policy_association" "admin" {
   access_scope {
     type = "cluster"
   }
+  depends_on = [aws_eks_access_entry.admin]
+}
+
+resource "aws_eks_access_entry" "adam" {
+  cluster_name      = var.cluster_name
+  principal_arn     = "arn:aws:iam::084828586638:user/adam"
+  kubernetes_groups = ["eks-console-dashboard-full-access-group"]
+  type              = "STANDARD"
+
+  depends_on = [module.eks_cluster]   # <--- This is critical
+
+}
+
+resource "aws_eks_access_policy_association" "adam" {
+  cluster_name  = var.cluster_name
+  principal_arn = "arn:aws:iam::084828586638:user/adam"
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  access_scope {
+    type = "cluster"
+  }
+  depends_on = [aws_eks_access_entry.admin]
 }
