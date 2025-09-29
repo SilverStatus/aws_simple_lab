@@ -21,19 +21,19 @@ variable "subnet_ids" {
 variable "desired_nodes_spot" {
   description = "Desired number of nodes in the node group"
   type        = number
-  default     = 1
+  default     = ""
 }
 
 variable "max_nodes_spot" {
   description = "Maximum number of nodes in the node group"
   type        = number
-  default     = 2
+  default     = ""
 }
 
 variable "min_nodes_spot" {
   description = "Minimum number of nodes in the node group"
   type        = number
-  default     = 0
+  default     = ""
 }
 
 variable "os_instance_type" {
@@ -51,19 +51,19 @@ variable "node_instance_type_spot" {
 variable "desired_nodes_on_demand" {
   description = "Desired number of nodes in the node group"
   type        = number
-  default     = 1
+  default     = ""
 }
 
 variable "max_nodes_on_demand" {
   description = "Maximum number of nodes in the node group"
   type        = number
-  default     = 2
+  default     = ""
 }
 
 variable "min_nodes_on_demand" {
   description = "Minimum number of nodes in the node group"
   type        = number
-  default     = 0
+  default     = ""
 }
 
 variable "node_instance_type_on_demand" {

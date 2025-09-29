@@ -41,14 +41,20 @@ module "eks_cluster" {
 }
 
 module "eks_asg" {
-  source         = "../../modules/eks_asg" 
-  aws_eks_cluster_name = module.eks_cluster.cluster_name
-  subnet_ids     = module.vpc.public_subnet_ids 
-  node_role_arn  = module.iam.eks_node_group_arn
+  source                = "../../modules/eks_asg" 
+  aws_eks_cluster_name  = var.cluster_name #module.eks_cluster.cluster_name
+  subnet_ids            = module.vpc.public_subnet_ids 
+  node_role_arn         = module.iam.eks_node_group_arn
   
   # Spot instance configuration
-  desired_nodes_spot = 2
-  max_nodes_spot     = 3
-  min_nodes_spot     = 1
+  desired_nodes_spot = 1
+  max_nodes_spot     = 2
+  min_nodes_spot     = 0
   node_instance_type_spot = "t3.medium"
+
+  # Spot instance configuration
+  desired_nodes_on_demand = 1
+  max_nodes_on_demand     = 2
+  min_nodes_on_demand     = 0
+  node_instance_type_on_demand = "t2.micro"
 }

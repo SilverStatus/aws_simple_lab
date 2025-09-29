@@ -15,6 +15,11 @@ resource "aws_eks_node_group" "eks_workers_spot" {
   instance_types = [var.node_instance_type_spot]
   disk_size      = 20
 
+  labels = {
+    "eks/worker-node-type" = "spot"
+    "eks/worker-family" = "backend"
+  }
+
   tags = {
     Name = "eks-worker-node_spot"
     ManagedBy = "Terraform"
@@ -42,6 +47,11 @@ resource "aws_eks_node_group" "eks_workers_on_demand" {
   ami_type       = var.os_instance_type
   instance_types = [var.node_instance_type_on_demand]
   disk_size      = 20
+
+  labels = {
+    "eks/worker-node-type" = "on-demand"
+    "eks/worker-family" = "backend"
+  }
 
   tags = {
     Name = "eks-worker-node_on_demand"
