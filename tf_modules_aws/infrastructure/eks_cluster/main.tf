@@ -1,12 +1,12 @@
-# terraform {
-#   required_version = ">= 1.0.0"             # Adjust if you require a newer Terraform
-#   required_providers {
-#     aws = {
-#       source  = "hashicorp/aws"
-#       version = ">= 5.0.0, < 6.0.0"         # This locks you to version 5.X
-#     }
-#   }
-# }
+terraform {
+  required_version = ">= 1.0.0"             # Adjust if you require a newer Terraform
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.0.0, < 6.0.0"         # This locks you to version 5.X
+    }
+  }
+}
 
 provider "aws" {
   region = var.region
