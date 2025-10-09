@@ -22,20 +22,20 @@ resource "aws_eks_cluster" "eks_cluster" {
 resource "aws_eks_addon" "vpc_cni" {
   cluster_name      = aws_eks_cluster.eks_cluster.name
   addon_name        = "vpc-cni"
-  addon_version     = "v1.16.0-eksbuild.1"
+  addon_version     = "v1.20.2-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 }
 
 resource "aws_eks_addon" "kube_proxy" {
   cluster_name      = aws_eks_cluster.eks_cluster.name
   addon_name        = "kube-proxy"
-  addon_version     = "v1.30.14-eksbuild.8"
+  addon_version     = "v1.33.3-eksbuild.6"
   resolve_conflicts_on_create = "OVERWRITE"
 }
 
 resource "aws_eks_addon" "coredns" {
   cluster_name      = aws_eks_cluster.eks_cluster.name
   addon_name        = "coredns"
-  addon_version     = "v1.11.4-eksbuild.22"
+  addon_version     = "v1.12.4-eksbuild.1"
   resolve_conflicts_on_create = "OVERWRITE"
 }
