@@ -8,3 +8,14 @@ output "dynamodb_table_name" {
 output "ecr_repository_url" {
   value = aws_ecr_repository.my_ecr_repo.repository_url
 }
+
+output "s3_admin_access_key" {
+  value     = aws_iam_access_key.s3_admin.id
+  sensitive = true
+}
+
+output "s3_admin_secret_key" {
+  value     = aws_iam_access_key.s3_admin.secret
+  sensitive = true
+}
+

@@ -115,5 +115,22 @@ resource "aws_ecr_lifecycle_policy" "my_ecr_repo_lifecycle" {
 EOF
 }
 
+# create iam user for s3
+resource "aws_iam_user" "s3_admin" {
+  name = "s3-admin"
+}
+
+resource "aws_iam_policy_attachment" "s3_admin_policy" {
+  name       = "s3-admin-policy-attachment"
+  users      = [aws_iam_user.s3_admin.name]
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+resource "aws_iam_access_key" "s3_admin" {
+  user = aws_iam_user.s3_admin.name
+}
+
+
+
 
 
