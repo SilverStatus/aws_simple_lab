@@ -115,20 +115,106 @@ resource "aws_ecr_lifecycle_policy" "my_ecr_repo_lifecycle" {
 EOF
 }
 
-# create iam user for s3
-resource "aws_iam_user" "s3_admin" {
-  name = "s3-admin"
+# Create IAM User
+resource "aws_iam_user" "git_user" {
+  name = "git-user"
+  path = "/"
+
+  tags = {
+    Name        = "Git User"
+    Environment = "Production"
+  }
 }
 
-resource "aws_iam_policy_attachment" "s3_admin_policy" {
-  name       = "s3-admin-policy-attachment"
-  users      = [aws_iam_user.s3_admin.name]
+# Attach S3 Full Access Policy
+resource "aws_iam_user_policy_attachment" "s3_admin" {
+  user       = aws_iam_user.git_user.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 
-resource "aws_iam_access_key" "s3_admin" {
-  user = aws_iam_user.s3_admin.name
+# Attach EC2 Full Access Policy
+resource "aws_iam_user_policy_attachment" "ec2_admin" {
+  user       = aws_iam_user.git_user.name       
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
 }
+
+# Attach VPC Full Access Policy
+resource "aws_iam_user_policy_attachment" "vpc_admin" {
+  user       = aws_iam_user.git_user.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"
+}
+
+# Create custom policy for ALB admin access
+resource "aws_iam_policy" "alb_admin" {
+  name        = "ALBAdminPolicy"
+  description = "Policy for full ALB administration"
+  
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "elasticloadbalancing:*"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+# Attach ALB Admin Policy
+resource "aws_iam_user_policy_attachment" "alb_admin" {
+  user       = aws_iam_user.git_user.name
+  policy_arn = aws_iam_policy.alb_admin.arn
+}
+
+# Create custom policy for Security Group admin access
+resource "aws_iam_policy" "sg_admin" {
+  name        = "SecurityGroupAdminPolicy"
+  description = "Policy for full Security Group administration"
+  
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSecurityGroupRules",
+          "ec2:DescribeSecurityGroupReferences",
+          "ec2:DescribeStaleSecurityGroups",
+          "ec2:CreateSecurityGroup",
+          "ec2:DeleteSecurityGroup",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+          "ec2:ModifySecurityGroupRules",
+          "ec2:CreateTags",
+          "ec2:DeleteTags"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+# Attach Security Group Admin Policy
+resource "aws_iam_user_policy_attachment" "sg_admin" {
+  user       = aws_iam_user.git_user.name
+  policy_arn = aws_iam_policy.sg_admin.arn
+}
+
+# Optional: Create access keys for programmatic access
+resource "aws_iam_access_key" "git_user_key" {
+  user = aws_iam_user.git_user.name
+}
+
+
+
 
 
 
