@@ -23,12 +23,12 @@ output "user_arn" {
 output "access_key_id" {
   value       = aws_iam_access_key.git_user_key.id
   description = "Access key ID"
-  # sensitive   = true
+  sensitive   = true
 }
 
 output "secret_access_key" {
   value       = aws_iam_access_key.git_user_key.secret
   description = "Secret access key"
-  # sensitive   = true
+  sensitive   = true
 }
 
