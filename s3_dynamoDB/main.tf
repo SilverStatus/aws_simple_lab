@@ -43,76 +43,76 @@ resource "aws_dynamodb_table" "terraform_locks" {
   
 }
 
-# create ECR repository
-resource "aws_ecr_repository" "my_ecr_repo" {
-  name = "my-ecr-repo"
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-  tags = {
-    Name        = "my-ecr-repo"
-    Environment = "Terraform"
-  }
+# # create ECR repository
+# resource "aws_ecr_repository" "my_ecr_repo" {
+#   name = "my-ecr-repo"
+#   image_scanning_configuration {
+#     scan_on_push = true
+#   }
+#   tags = {
+#     Name        = "my-ecr-repo"
+#     Environment = "Terraform"
+#   }
   
-}
+# }
 
-# Create an ECR repository policy to allow pull access
-resource "aws_ecr_repository_policy" "my_ecr_repo_policy" {
-  repository = aws_ecr_repository.my_ecr_repo.name
-  policy     = <<EOF
-{
-  "Version": "2008-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowPull",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": [
-          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-        ]
-      },
-      "Action": [
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:CompleteLayerUpload",
-        "ecr:InitiateLayerUpload",
-        "ecr:PutImage",
-        "ecr:UploadLayerPart"
-      ]
-    }
-  ]
-}
-EOF
-}
+# # Create an ECR repository policy to allow pull access
+# resource "aws_ecr_repository_policy" "my_ecr_repo_policy" {
+#   repository = aws_ecr_repository.my_ecr_repo.name
+#   policy     = <<EOF
+# {
+#   "Version": "2008-10-17",
+#   "Statement": [
+#     {
+#       "Sid": "AllowPull",
+#       "Effect": "Allow",
+#       "Principal": {
+#         "AWS": [
+#           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+#         ]
+#       },
+#       "Action": [
+#         "ecr:GetDownloadUrlForLayer",
+#         "ecr:BatchGetImage",
+#         "ecr:BatchCheckLayerAvailability",
+#         "ecr:CompleteLayerUpload",
+#         "ecr:InitiateLayerUpload",
+#         "ecr:PutImage",
+#         "ecr:UploadLayerPart"
+#       ]
+#     }
+#   ]
+# }
+# EOF
+# }
 
 
-#data source that queries information about the AWS account and credentials currently in use
-data "aws_caller_identity" "current" {}
+# #data source that queries information about the AWS account and credentials currently in use
+# data "aws_caller_identity" "current" {}
 
-# Optional: Lifecycle policy to clean up old images
-resource "aws_ecr_lifecycle_policy" "my_ecr_repo_lifecycle" {
-  repository = aws_ecr_repository.my_ecr_repo.name
+# # Optional: Lifecycle policy to clean up old images
+# resource "aws_ecr_lifecycle_policy" "my_ecr_repo_lifecycle" {
+#   repository = aws_ecr_repository.my_ecr_repo.name
 
-  policy = <<EOF
-{
-  "rules": [
-    {
-      "rulePriority": 1,
-      "description": "Keep last 30 images",
-      "selection": {
-        "tagStatus": "any",
-        "countType": "imageCountMoreThan",
-        "countNumber": 30
-      },
-      "action": {
-        "type": "expire"
-      }
-    }
-  ]
-}
-EOF
-}
+#   policy = <<EOF
+# {
+#   "rules": [
+#     {
+#       "rulePriority": 1,
+#       "description": "Keep last 30 images",
+#       "selection": {
+#         "tagStatus": "any",
+#         "countType": "imageCountMoreThan",
+#         "countNumber": 30
+#       },
+#       "action": {
+#         "type": "expire"
+#       }
+#     }
+#   ]
+# }
+# EOF
+# }
 
 # Create IAM User
 resource "aws_iam_user" "git_user" {
