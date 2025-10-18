@@ -5,9 +5,9 @@ output "s3_bucket_name" {
 output "dynamodb_table_name" {
   value = aws_dynamodb_table.terraform_locks.name
 }
-output "ecr_repository_url" {
-  value = aws_ecr_repository.my_ecr_repo.repository_url
-}
+# output "ecr_repository_url" {
+#   value = aws_ecr_repository.my_ecr_repo.repository_url
+# }
 
 
 output "user_name" {
